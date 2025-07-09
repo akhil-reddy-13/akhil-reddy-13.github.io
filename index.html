@@ -27,13 +27,15 @@
     :root {
       --bg: #ffffff;
       --fg: #1a1a1a;
-      --accent: #0070f3;
+      --accent: #cccccc;
+      --accent-hover: #e6e6e6;
       --text-subtle: #666;
     }
     .dark {
       --bg: #1a1a1a;
       --fg: #ffffff;
-      --accent: #4ea8ff;
+      --accent: #666666;
+      --accent-hover: #4d4d4d;
       --text-subtle: #ccc;
     }
     * {
@@ -52,6 +54,24 @@
       padding: 2rem;
       background-color: var(--bg);
       border-right: 1px solid #ccc;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .contact-box {
+      background-color: var(--accent);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      color: var(--fg);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .contact-icon {
+      font-size: 1.5rem;
+      user-select: none;
     }
     main {
       flex: 1;
@@ -63,6 +83,7 @@
       border-radius: 50%;
       object-fit: cover;
       margin-bottom: 1rem;
+      display: none;
     }
     .socials img {
       width: 24px;
@@ -88,28 +109,65 @@
       transition: background-color 0.2s;
     }
     nav a:hover {
-      background-color: var(--accent);
-      color: var(--bg);
+      background-color: var(--accent-hover);
+      color: var(--fg);
     }
     .tab-content {
       display: none;
     }
     h2 {
       margin-top: 0;
+      color: var(--fg);
+    }
+    .experience-entry {
+      background-color: var(--accent);
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      color: var(--fg);
+    }
+    .experience-logo {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+    .experience-details {
+      flex: 1;
+    }
+    .experience-dates {
+      font-size: 0.85rem;
+      color: var(--text-subtle);
+      white-space: nowrap;
+      flex-shrink: 0;
+      text-align: right;
+    }
+    ul {
+      padding-left: 1.2rem;
+      color: var(--fg);
     }
   </style>
 </head>
 <body>
   <aside>
-    <img class="profile-pic" src="https://via.placeholder.com/100" alt="Akhil Reddy" />
-    <p><strong>Akhil Reddy</strong></p>
-    <p>CS + Math @ Stanford</p>
-    <div class="socials">
-      <a href="https://github.com/akhil-reddy-13"><img src="github.png" alt="GitHub" /></a>
-      <a href="https://linkedin.com/in/akhilreddy1312"><img src="linkedin.png" alt="LinkedIn" /></a>
-      <a href="mailto:asreddy1312@gmail.com">📧</a>
+    <div class="contact-box">
+      <span class="contact-icon">✉️</span>
+      <div>
+        <div>asreddy1312@gmail.com</div>
+        <div>asreddy@stanford.edu</div>
+      </div>
     </div>
-    <p><a href="#">About</a> • <a href="#">Contact</a></p>
+    <div class="contact-box">
+      <span class="contact-icon">📞</span>
+      <div>(913) 484-9144</div>
+    </div>
+    <div class="contact-box">
+      <span class="contact-icon">📍</span>
+      <div>Overland Park, KS</div>
+    </div>
   </aside>
   <main>
     <header>
@@ -128,35 +186,60 @@
       </nav>
     </header>
 
-    <section id="home" class="tab-content">
+    <section id="home" class="tab-content" style="display: block;">
       <h2>Welcome</h2>
       <p>Hi! I'm Akhil, a Stanford student exploring the intersections of computer science, mathematics, and leadership. From building productivity tools to leading civic engagement in Kansas, I’m passionate about using technology and storytelling to drive impact.</p>
+      <h2>About Me</h2>
+      <p><strong>Akhil Reddy</strong></p>
+      <p>CS + Math @ Stanford</p>
+      <div class="socials" style="margin-top: 0.5rem;">
+        <a href="https://github.com/akhil-reddy-13"><img src="images/github.png" alt="GitHub" /></a>
+        <a href="https://linkedin.com/in/akhilreddy1312"><img src="images/linkedin.png" alt="LinkedIn" /></a>
+        <a href="mailto:asreddy1312@gmail.com" style="font-size: 1.3rem; margin-left: 0.5rem;">📧</a>
+      </div>
     </section>
 
     <section id="experience" class="tab-content">
       <h2>Experience</h2>
-      <div style="background-color: #2a2a2a; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-        <p><strong>Marketing Intern</strong>, Pipeline Entrepreneurs (2025)<br />
-        Digital storytelling, fellow spotlights, social media.</p>
+      <div class="experience-entry">
+        <img class="experience-logo" src="images/pipeline.png" alt="Pipeline Entrepreneurs" />
+        <div class="experience-details">
+          <strong>Marketing Intern</strong>, Pipeline Entrepreneurs<br />
+          Digital storytelling, fellow spotlights, social media.
+        </div>
+        <div class="experience-dates">2025</div>
       </div>
-      <div style="background-color: #2a2a2a; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-        <p><strong>Kansas President</strong>, Voters of Tomorrow (2023–2025)<br />
-        Led executive board, organized civic campaigns reaching 5000+ voters.</p>
+      <div class="experience-entry">
+        <img class="experience-logo" src="images/vot.png" alt="Voters of Tomorrow" />
+        <div class="experience-details">
+          <strong>Kansas President</strong>, Voters of Tomorrow<br />
+          Led executive board, organized civic campaigns reaching 5000+ voters.
+        </div>
+        <div class="experience-dates">2023–2025</div>
       </div>
-      <div style="background-color: #2a2a2a; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-        <p><strong>Vice President & Youth Liaison</strong>, Overland Park Teen Council (2022–2025)<br />
-        Advised city initiatives, volunteered 60+ hours on community projects.</p>
+      <div class="experience-entry">
+        <img class="experience-logo" src="images/yip.png" alt="Youth In Politics" />
+        <div class="experience-details">
+          <strong>Vice President & Youth Liaison</strong>, Overland Park Teen Council<br />
+          Advised city initiatives, volunteered 60+ hours on community projects.
+        </div>
+        <div class="experience-dates">2022–2025</div>
       </div>
-      <div style="background-color: #2a2a2a; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-        <p><strong>Research Associate</strong>, Teen Think Tank Project (Jul–Aug 2024)<br />
-        Wrote framework on inequality & housing. Most Outstanding Research Associate.</p>
+      <div class="experience-entry">
+        <img class="experience-logo" src="images/ttt.png" alt="Teen Think Tank Project" />
+        <div class="experience-details">
+          <strong>Research Associate</strong>, Teen Think Tank Project<br />
+          Wrote framework on inequality & housing. Most Outstanding Research Associate.
+        </div>
+        <div class="experience-dates">Jul–Aug 2024</div>
       </div>
     </section>
 
     <section id="projects" class="tab-content">
       <h2>Projects</h2>
-      <p><strong>Sprout</strong> – Smart launcher app to boost productivity. Built with Python.</p>
-      <p><strong>Daily Games</strong> – Mac app delivering morning mental challenges.</p>
+      <p><strong>Sprout</strong> – Smart launcher app to boost productivity. Built with Python, Sprout streamlines your workflow by providing quick access to your most-used apps and documents, customizable shortcuts, and intelligent suggestions based on your habits.</p>
+      <p><strong>Pong</strong> – Classic arcade game recreated with modern twists and AI opponents. A fun project to explore game development fundamentals.</p>
+      <p><strong>HSV Spirograph</strong> – A creative visualization tool generating colorful spirograph patterns using HSV color space. Designed to experiment with color theory and graphics programming.</p>
     </section>
 
     <section id="education" class="tab-content">
