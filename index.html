@@ -128,6 +128,17 @@
       align-items: center;
       gap: 1rem;
       color: var(--fg);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .experience-entry.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .experience-entry:hover {
+      transform: translateY(0) scale(1.02);
+      background-color: var(--accent-hover);
     }
     .experience-logo {
       width: 48px;
@@ -153,12 +164,24 @@
 </head>
 <body>
   <aside>
+    <img class="profile-pic" src="images/pfp.png" alt="Akhil Reddy" style="display: block;" />
+    <div style="text-align: center;">
+      <div style="font-size:1.35rem; font-weight:700; color:var(--fg);">Akhil Reddy</div>
+      <div style="font-size:1rem; color:var(--text-subtle); margin-bottom: 1rem;">Stanford University</div>
+    </div>
+    <div style="color: var(--fg); margin-bottom: 0.5rem;"><strong>About Me</strong></div>
+    <div style="margin-bottom: 1rem; color: var(--fg);">
+      Hi! I'm Akhil, a Stanford student exploring the intersections of computer science, mathematics, and leadership. From building productivity tools to leading civic engagement in Kansas, I’m passionate about using technology and storytelling to drive impact.
+    </div>
+    <div class="socials" style="margin-bottom: 1.5rem; text-align: center;">
+      <a href="https://github.com/akhil-reddy-13"><img src="images/github.png" alt="GitHub" /></a>
+      <a href="https://linkedin.com/in/akhilreddy1312"><img src="images/linkedin.png" alt="LinkedIn" /></a>
+      <a href="mailto:asreddy@stanford.edu" style="font-size: 1.3rem; margin-left: 0.5rem;">📧</a>
+    </div>
+    <div style="color: var(--fg); font-weight:600; margin-bottom:0.2rem; font-size:1.05rem;">Contact</div>
     <div class="contact-box">
       <span class="contact-icon">✉️</span>
-      <div>
-        <div>asreddy1312@gmail.com</div>
-        <div>asreddy@stanford.edu</div>
-      </div>
+      <div>asreddy@stanford.edu</div>
     </div>
     <div class="contact-box">
       <span class="contact-icon">📞</span>
@@ -188,15 +211,7 @@
 
     <section id="home" class="tab-content" style="display: block;">
       <h2>Welcome</h2>
-      <p>Hi! I'm Akhil, a Stanford student exploring the intersections of computer science, mathematics, and leadership. From building productivity tools to leading civic engagement in Kansas, I’m passionate about using technology and storytelling to drive impact.</p>
-      <h2>About Me</h2>
-      <p><strong>Akhil Reddy</strong></p>
-      <p>CS + Math @ Stanford</p>
-      <div class="socials" style="margin-top: 0.5rem;">
-        <a href="https://github.com/akhil-reddy-13"><img src="images/github.png" alt="GitHub" /></a>
-        <a href="https://linkedin.com/in/akhilreddy1312"><img src="images/linkedin.png" alt="LinkedIn" /></a>
-        <a href="mailto:asreddy1312@gmail.com" style="font-size: 1.3rem; margin-left: 0.5rem;">📧</a>
-      </div>
+      <p>Welcome to my website!</p>
     </section>
 
     <section id="experience" class="tab-content">
@@ -244,8 +259,18 @@
 
     <section id="education" class="tab-content">
       <h2>Education</h2>
-      <p><strong>Stanford University</strong> (Expected 2028)<br />B.S. Computer Science, Mathematics</p>
-      <p><strong>Blue Valley High School</strong> (2025)<br />GPA: 4.82 | ACT: 36 | KS Governor’s Scholar Award</p>
+      <div class="experience-entry">
+        <img class="experience-logo" src="images/stanford.png" alt="Stanford University" />
+        <div class="experience-details">
+          <strong>Stanford University</strong> (Expected 2028)<br />B.S. Computer Science, Mathematics
+        </div>
+      </div>
+      <div class="experience-entry">
+        <img class="experience-logo" src="images/bvhs.png" alt="Blue Valley High School" />
+        <div class="experience-details">
+          <strong>Blue Valley High School</strong> (2025)<br />GPA: 4.82 | ACT: 36 | KS Governor’s Scholar Award
+        </div>
+      </div>
     </section>
 
     <section id="publications" class="tab-content">
@@ -265,4 +290,18 @@
     </section>
   </main>
 </body>
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.experience-entry').forEach(entry => {
+    observer.observe(entry);
+  });
+</script>
 </html>
