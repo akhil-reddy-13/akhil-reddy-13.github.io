@@ -9,7 +9,7 @@
     function toggleDarkMode() {
       document.body.classList.toggle('dark');
       document.getElementById('theme-icon').textContent =
-        document.body.classList.contains('dark') ? '☀️' : '🌙';
+        document.body.classList.contains('dark') ? '☀︎' : '☾';
     }
 
     function showTab(tabId) {
@@ -18,6 +18,8 @@
     }
 
     window.onload = () => {
+      document.body.classList.add('dark');
+      document.getElementById('theme-icon').textContent = '☀︎';
       showTab('home');
     };
   </script>
@@ -26,11 +28,13 @@
       --bg: #ffffff;
       --fg: #1a1a1a;
       --accent: #0070f3;
+      --text-subtle: #666;
     }
     .dark {
       --bg: #1a1a1a;
       --fg: #ffffff;
       --accent: #4ea8ff;
+      --text-subtle: #ccc;
     }
     * {
       box-sizing: border-box;
@@ -39,7 +43,7 @@
       margin: 0;
       font-family: 'Inter', sans-serif;
       background-color: var(--bg);
-      color: var(--fg);
+      color: var(--text-subtle);
       display: flex;
       min-height: 100vh;
     }
@@ -60,9 +64,10 @@
       object-fit: cover;
       margin-bottom: 1rem;
     }
-    .socials a {
-      margin-right: 1rem;
-      font-size: 1.5rem;
+    .socials img {
+      width: 24px;
+      height: 24px;
+      margin-right: 0.5rem;
     }
     header {
       display: flex;
@@ -72,13 +77,19 @@
     }
     nav a {
       margin-left: 1rem;
+      padding: 0.4rem 0.75rem;
+      border: 1px solid var(--accent);
+      border-radius: 5px;
+      background-color: transparent;
       color: var(--accent);
-      text-decoration: none;
       font-weight: 600;
+      text-decoration: none;
       cursor: pointer;
+      transition: background-color 0.2s;
     }
     nav a:hover {
-      text-decoration: underline;
+      background-color: var(--accent);
+      color: var(--bg);
     }
     .tab-content {
       display: none;
@@ -94,8 +105,8 @@
     <p><strong>Akhil Reddy</strong></p>
     <p>CS + Math @ Stanford</p>
     <div class="socials">
-      <a href="https://github.com/akhil-reddy-13">🐙</a>
-      <a href="https://linkedin.com/in/akhilreddy1312">🔗</a>
+      <a href="https://github.com/akhil-reddy-13"><img src="github.png" alt="GitHub" /></a>
+      <a href="https://linkedin.com/in/akhilreddy1312"><img src="linkedin.png" alt="LinkedIn" /></a>
       <a href="mailto:asreddy1312@gmail.com">📧</a>
     </div>
     <p><a href="#">About</a> • <a href="#">Contact</a></p>
@@ -124,10 +135,22 @@
 
     <section id="experience" class="tab-content">
       <h2>Experience</h2>
-      <p><strong>Marketing Intern</strong>, Pipeline Entrepreneurs (2025)<br />Digital storytelling, fellow spotlights, social media.</p>
-      <p><strong>Kansas President</strong>, Voters of Tomorrow (2023–2025)<br />Led executive board, organized civic campaigns reaching 5000+ voters.</p>
-      <p><strong>Vice President & Youth Liaison</strong>, Overland Park Teen Council (2022–2025)<br />Advised city initiatives, volunteered 60+ hours on community projects.</p>
-      <p><strong>Research Associate</strong>, Teen Think Tank Project (Jul–Aug 2024)<br />Wrote framework on inequality & housing. Most Outstanding Research Associate.</p>
+      <div style="background-color: #2a2a2a; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+        <p><strong>Marketing Intern</strong>, Pipeline Entrepreneurs (2025)<br />
+        Digital storytelling, fellow spotlights, social media.</p>
+      </div>
+      <div style="background-color: #2a2a2a; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+        <p><strong>Kansas President</strong>, Voters of Tomorrow (2023–2025)<br />
+        Led executive board, organized civic campaigns reaching 5000+ voters.</p>
+      </div>
+      <div style="background-color: #2a2a2a; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+        <p><strong>Vice President & Youth Liaison</strong>, Overland Park Teen Council (2022–2025)<br />
+        Advised city initiatives, volunteered 60+ hours on community projects.</p>
+      </div>
+      <div style="background-color: #2a2a2a; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+        <p><strong>Research Associate</strong>, Teen Think Tank Project (Jul–Aug 2024)<br />
+        Wrote framework on inequality & housing. Most Outstanding Research Associate.</p>
+      </div>
     </section>
 
     <section id="projects" class="tab-content">
