@@ -5,95 +5,158 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Akhil Reddy</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <script>
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark');
+      document.getElementById('theme-icon').textContent =
+        document.body.classList.contains('dark') ? '☀️' : '🌙';
+    }
+
+    function showTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+      document.getElementById(tabId).style.display = 'block';
+    }
+
+    window.onload = () => {
+      showTab('home');
+    };
+  </script>
   <style>
+    :root {
+      --bg: #ffffff;
+      --fg: #1a1a1a;
+      --accent: #0070f3;
+    }
+    .dark {
+      --bg: #1a1a1a;
+      --fg: #ffffff;
+      --accent: #4ea8ff;
+    }
+    * {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background-color: #fdfdfd;
-      color: #1a1a1a;
-      line-height: 1.6;
+      background-color: var(--bg);
+      color: var(--fg);
+      display: flex;
+      min-height: 100vh;
     }
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
+    aside {
+      width: 25%;
+      padding: 2rem;
+      background-color: var(--bg);
+      border-right: 1px solid #ccc;
+    }
+    main {
+      flex: 1;
       padding: 2rem;
     }
-    header {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
-    header img {
-      width: 120px;
-      height: 120px;
+    .profile-pic {
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
       object-fit: cover;
       margin-bottom: 1rem;
     }
-    h1 {
-      margin: 0;
-      font-size: 2rem;
+    .socials a {
+      margin-right: 1rem;
+      font-size: 1.5rem;
     }
-    h2 {
-      font-size: 1.4rem;
-      margin-top: 2rem;
-    }
-    a {
-      color: #0070f3;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-    .section {
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 2rem;
     }
-    .project, .experience {
-      margin-bottom: 1rem;
+    nav a {
+      margin-left: 1rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
     }
-    footer {
-      text-align: center;
-      margin-top: 3rem;
-      color: #777;
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .tab-content {
+      display: none;
+    }
+    h2 {
+      margin-top: 0;
     }
   </style>
 </head>
 <body>
-  <div class="container">
+  <aside>
+    <img class="profile-pic" src="https://via.placeholder.com/100" alt="Akhil Reddy" />
+    <p><strong>Akhil Reddy</strong></p>
+    <p>CS + Math @ Stanford</p>
+    <div class="socials">
+      <a href="https://github.com/akhil-reddy-13">🐙</a>
+      <a href="https://linkedin.com/in/akhilreddy1312">🔗</a>
+      <a href="mailto:asreddy1312@gmail.com">📧</a>
+    </div>
+    <p><a href="#">About</a> • <a href="#">Contact</a></p>
+  </aside>
+  <main>
     <header>
-      <img src="https://via.placeholder.com/120" alt="Akhil Reddy">
-      <h1>Akhil Reddy</h1>
-      <p>CS + Math student | Builder | Explorer</p>
-      <p><a href="#">Resume</a></p>
+      <div>
+        <strong>Akhil Reddy</strong><br />
+        <small>Stanford University</small>
+      </div>
+      <nav>
+        <a onclick="showTab('home')">Home</a>
+        <a onclick="showTab('experience')">Experience</a>
+        <a onclick="showTab('projects')">Projects</a>
+        <a onclick="showTab('education')">Education</a>
+        <a onclick="showTab('publications')">Publications</a>
+        <a onclick="showTab('awards')">Awards</a>
+        <span id="theme-icon" onclick="toggleDarkMode()">🌙</span>
+      </nav>
     </header>
 
-    <section class="section about">
-      <h2>About</h2>
-      <p>Hi! I'm Akhil, a student passionate about technology, problem-solving, and creating things that matter. I'm currently exploring computer science, math, and entrepreneurship through hands-on projects and internships.</p>
+    <section id="home" class="tab-content">
+      <h2>Welcome</h2>
+      <p>Hi! I'm Akhil, a Stanford student exploring the intersections of computer science, mathematics, and leadership. From building productivity tools to leading civic engagement in Kansas, I’m passionate about using technology and storytelling to drive impact.</p>
     </section>
 
-    <section class="section experience">
+    <section id="experience" class="tab-content">
       <h2>Experience</h2>
-      <div class="experience">
-        <strong>Marketing Intern</strong> @ Pipeline Entrepreneurs (2025)<br>
-        Working on digital storytelling, fellow spotlights, and social media strategy.
-      </div>
-      <!-- Add more experience entries here -->
+      <p><strong>Marketing Intern</strong>, Pipeline Entrepreneurs (2025)<br />Digital storytelling, fellow spotlights, social media.</p>
+      <p><strong>Kansas President</strong>, Voters of Tomorrow (2023–2025)<br />Led executive board, organized civic campaigns reaching 5000+ voters.</p>
+      <p><strong>Vice President & Youth Liaison</strong>, Overland Park Teen Council (2022–2025)<br />Advised city initiatives, volunteered 60+ hours on community projects.</p>
+      <p><strong>Research Associate</strong>, Teen Think Tank Project (Jul–Aug 2024)<br />Wrote framework on inequality & housing. Most Outstanding Research Associate.</p>
     </section>
 
-    <section class="section projects">
+    <section id="projects" class="tab-content">
       <h2>Projects</h2>
-      <div class="project">
-        <strong>Sprout</strong> – A smart launcher app to boost daily productivity. Built with Python.
-      </div>
-      <div class="project">
-        <strong>Daily Games</strong> – A playful Mac app to start the day with small mental challenges.
-      </div>
-      <!-- Add more projects here -->
+      <p><strong>Sprout</strong> – Smart launcher app to boost productivity. Built with Python.</p>
+      <p><strong>Daily Games</strong> – Mac app delivering morning mental challenges.</p>
     </section>
 
-    <footer>
-      <p><a href="https://github.com/akhil-reddy-13">GitHub</a> • <a href="https://www.linkedin.com/in/">LinkedIn</a> • <a href="mailto:youremail@example.com">Email</a></p>
-    </footer>
-  </div>
+    <section id="education" class="tab-content">
+      <h2>Education</h2>
+      <p><strong>Stanford University</strong> (Expected 2028)<br />B.S. Computer Science, Mathematics</p>
+      <p><strong>Blue Valley High School</strong> (2025)<br />GPA: 4.82 | ACT: 36 | KS Governor’s Scholar Award</p>
+    </section>
+
+    <section id="publications" class="tab-content">
+      <h2>Publications</h2>
+      <p>Economic inequality & U.S. housing crisis framework – Teen Think Tank Project (2024)</p>
+    </section>
+
+    <section id="awards" class="tab-content">
+      <h2>Awards</h2>
+      <ul>
+        <li>International Public Policy Forum – Top 8 (2024–2025)</li>
+        <li>Wes Fry Speech Contest – 2022 & 2024 Champion</li>
+        <li>Eloquence Speech Competition – 1st Place (U18, 2024)</li>
+        <li>Top 60 – NSDA International Extemp (2024)</li>
+        <li>Premier Distinction – National Speech & Debate Association</li>
+      </ul>
+    </section>
+  </main>
 </body>
 </html>
