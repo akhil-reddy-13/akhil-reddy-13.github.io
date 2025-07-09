@@ -63,7 +63,7 @@
     .contact-box {
       background-color: var(--accent);
       border-radius: 12px;
-      padding: 1rem 1.25rem;
+      padding: 0.5rem 0.75rem;
       display: flex;
       align-items: center;
       gap: 1rem;
@@ -170,6 +170,11 @@
       padding-left: 1.2rem;
       color: var(--fg);
     }
+    hr {
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+      border-color: var(--accent);
+    }
   </style>
 </head>
 <body>
@@ -177,13 +182,24 @@
     <img class="profile-pic" src="images/pfp.png" alt="Akhil Reddy" />
     <div style="font-size:1.35rem; font-weight:700; color:var(--fg); margin-bottom: 0.25rem;">Akhil Reddy</div>
     <div style="font-size:1rem; color:var(--text-subtle); margin-bottom: 1rem;">Stanford University</div>
-    <hr style="width: 100%; border-color: var(--accent);" />
+    <hr />
     <div style="color: var(--fg); margin-bottom: 0.5rem; font-weight: 600;">About Me</div>
     <div style="margin-bottom: 1rem; color: var(--fg);">
       Hi! I'm Akhil, a Stanford student exploring the intersections of computer science, mathematics, and leadership. From building productivity tools to leading civic engagement in Kansas, I’m passionate about using technology and storytelling to drive impact.
     </div>
-    <hr style="width: 100%; border-color: var(--accent);" />
-    <hr style="width: 100%; border-color: var(--accent);" />
+    <div class="socials" style="margin-bottom: 1rem;">
+      <a href="https://github.com/akhil-reddy-13" target="_blank" rel="noopener noreferrer">
+        <img src="images/github.png" alt="GitHub" />
+      </a>
+      <a href="https://linkedin.com/in/akhilreddy1312" target="_blank" rel="noopener noreferrer">
+        <img src="images/linkedin.png" alt="LinkedIn" />
+      </a>
+      <a href="mailto:asreddy@stanford.edu">
+        <img src="images/mail.png" alt="Email" />
+      </a>
+    </div>
+    <hr />
+    <hr />
     <div style="color: var(--fg); font-weight:600; margin-bottom:0.2rem; font-size:1.05rem;">Contact</div>
     <div class="contact-box">
       <span class="contact-icon">✉️</span>
