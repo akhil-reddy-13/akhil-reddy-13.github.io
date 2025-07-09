@@ -56,7 +56,7 @@
       border-right: 1px solid #ccc;
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      gap: 1rem;
       align-items: center;
       text-align: center;
     }
@@ -103,8 +103,8 @@
       display: flex;
       justify-content: center;
       gap: 1rem;
-      margin-bottom: 1.5rem;
-      background-color: var(--accent-hover);
+      margin-bottom: 0.5rem;
+      background-color: #1a1a1a;
       padding: 0.5rem 1rem;
       border-radius: 8px;
     }
@@ -129,6 +129,11 @@
     nav a:hover {
       background-color: var(--accent-hover);
       color: var(--fg);
+    }
+    #theme-icon {
+      margin-left: 0.5rem;
+      cursor: pointer;
+      user-select: none;
     }
     .tab-content {
       display: none;
@@ -179,9 +184,10 @@
       color: var(--fg);
     }
     hr {
-      margin-top: 0.5rem;
-      margin-bottom: 0.5rem;
-      border-color: var(--accent);
+      margin-top: 0.25rem;
+      margin-bottom: 0.25rem;
+      border: none;
+      border-top: 1px solid var(--accent);
     }
   </style>
 </head>
@@ -211,7 +217,7 @@
     </div>
     <hr />
     <hr />
-    <div style="color: var(--fg); font-weight:600; margin-bottom:0.2rem; font-size:1.05rem;">Contact</div>
+    <div style="color: var(--fg); font-weight:600; margin-bottom:0.1rem; font-size:1.05rem;">Contact</div>
     <div class="contact-box">
       <span class="contact-icon">✉️</span>
       <div>asreddy@stanford.edu</div>
