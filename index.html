@@ -79,6 +79,14 @@
     main {
       flex: 1;
       padding: 2rem;
+      opacity: 0;
+      animation: fadeIn 1.2s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
     }
     .profile-pic {
       width: 100px;
@@ -328,6 +336,9 @@
         <li>Premier Distinction – National Speech & Debate Association</li>
       </ul>
     </section>
+    <footer style="text-align:center; margin-top: 4rem; font-size: 0.9rem; color: var(--text-subtle);">
+      © 2025 Akhil Reddy. All rights reserved.
+    </footer>
   </main>
 </body>
 <script>
