@@ -14,7 +14,7 @@
       const isDark = document.body.classList.contains('dark');
       const isMatcha = document.body.classList.contains('matcha');
       // Use matcha background #fc9fb1
-      const bgColor = isDark ? 0x1a1a1a : isMatcha ? 0xfc9fb1 : 0xffffff;
+      const bgColor = isDark ? 0x1a1a1a : isMatcha ? 0xffffff : 0xffffff;
       const lineColor = isDark ? 0xcccccc : isMatcha ? 0x74a12e : 0x333333;
       window.vantaEffect = VANTA.NET({
         el: "#home",
@@ -27,9 +27,9 @@
         scaleMobile: 1.0,
         color: lineColor,
         backgroundColor: bgColor,
-        points: 12.0,
-        maxDistance: 20.0,
-        spacing: 15.0
+        points: 20.0,
+        maxDistance: 30.0,
+        spacing: 12.0
       });
     }
 
