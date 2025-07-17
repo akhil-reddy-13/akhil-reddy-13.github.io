@@ -13,7 +13,7 @@
       if (window.vantaEffect) window.vantaEffect.destroy();
       const isDark = document.body.classList.contains('dark');
       const isMatcha = document.body.classList.contains('matcha');
-      const bgColor = isDark ? 0x1a1a1a : isMatcha ? 0xf6e7e0 : 0xffffff;
+      const bgColor = isDark ? 0x1a1a1a : isMatcha ? 0xf3fce8 : 0xffffff;
       const lineColor = isDark ? 0xcccccc : isMatcha ? 0xcc887a : 0x333333;
       window.vantaEffect = VANTA.NET({
         el: "#home",
@@ -54,8 +54,8 @@
     }
 
     window.onload = () => {
-      document.body.classList.add('dark');
-      document.getElementById('theme-icon').textContent = '☀︎';
+      document.body.classList.add('matcha');
+      document.getElementById('theme-icon').textContent = '⏾';
       showTab('home');
       updateVantaTheme();
     };
@@ -76,11 +76,11 @@
       --text-subtle: #ccc;
     }
     .matcha {
-      --bg: #f6e7e0;
-      --fg: #3e3e2e;
+      --bg: #f3fce8;
+      --fg: #2d3c29;
       --accent: #cc887a;
       --accent-hover: #dfa79a;
-      --text-subtle: #8c705f;
+      --text-subtle: #6c7b60;
     }
     * {
       box-sizing: border-box;
@@ -332,7 +332,7 @@
         <div class="experience-dates">2023–2025</div>
       </div>
       <div class="experience-entry">
-        <img class="experience-logo" src="images/yip.png" alt="Youth In Politics" />
+        <img class="experience-logo" src="images/op.png" alt="Overland Park" />
         <div class="experience-details">
           <strong>Vice President & Youth Liaison</strong>, Overland Park Teen Council<br />
           Advised city initiatives, volunteered 60+ hours on community projects.
