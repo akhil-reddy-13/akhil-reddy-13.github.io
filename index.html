@@ -55,7 +55,7 @@
 
     window.onload = () => {
       document.body.classList.add('matcha');
-      document.getElementById('theme-icon').textContent = '⏾';
+      document.getElementById('theme-icon').textContent = '🍵';
       showTab('home');
       updateVantaTheme();
     };
@@ -76,11 +76,11 @@
       --text-subtle: #ccc;
     }
     .matcha {
-      --bg: #f3fce8;
+      --bg: #ffffff;
       --fg: #2d3c29;
-      --accent: #cc887a;
-      --accent-hover: #dfa79a;
-      --text-subtle: #6c7b60;
+      --accent: #b9dca9;
+      --accent-hover: #74a12e;
+      --text-subtle: #fc9fb1;
     }
     * {
       box-sizing: border-box;
@@ -157,9 +157,18 @@
       justify-content: center;
       gap: 1rem;
       margin-bottom: 0.5rem;
-      background-color: #1a1a1a;
+      background-color: #b9dca9;
       padding: 0.5rem 1rem;
       border-radius: 8px;
+    }
+    .github-fix {
+      background-color: #000;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     header {
       display: flex;
@@ -248,9 +257,21 @@
       border-top: 1px solid var(--accent);
       width: 100%;
     }
+    #matcha-particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      pointer-events: none;
+      background: transparent;
+    }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js"></script>
 </head>
 <body>
+  <div id="matcha-particles"></div>
   <aside>
     <img class="profile-pic" src="images/pfp.png" alt="Akhil Reddy" />
     <div style="font-size:1.35rem; font-weight:700; color:var(--fg); margin-bottom: 0.25rem;">Akhil Reddy</div>
@@ -264,7 +285,9 @@
     <div class="social-container">
       <div class="socials">
         <a href="https://github.com/akhil-reddy-13" target="_blank" rel="noopener noreferrer">
-          <img src="images/github.png" alt="GitHub" />
+          <div class="github-fix">
+            <img src="images/github.png" alt="GitHub" />
+          </div>
         </a>
         <a href="https://linkedin.com/in/akhilreddy1312" target="_blank" rel="noopener noreferrer">
           <img src="images/linkedin.png" alt="LinkedIn" />
@@ -421,6 +444,70 @@
     points: 12.0,
     maxDistance: 20.0,
     spacing: 15.0
+  });
+</script>
+<script>
+  tsParticles.load("matcha-particles", {
+    fullScreen: { enable: false },
+    background: { color: { value: "transparent" } },
+    particles: {
+      number: { value: 75 },
+      shape: {
+        type: "polygon",
+        polygon: { sides: 6 }
+      },
+      size: { value: 4 },
+      color: {
+        value: ["#74a12e", "#b9dca9", "#fc9fb1", "#fcbacb"]
+      },
+      opacity: { value: 0.6 },
+      move: {
+        enable: true,
+        speed: 1,
+        outModes: { default: "bounce" },
+        direction: "none"
+      },
+      links: {
+        enable: true,
+        distance: 120,
+        color: "#b9dca9",
+        opacity: 0.3,
+        width: 1
+      },
+      // Add strawberry images as a group
+      groups: {
+        strawberries: {
+          number: { value: 10 },
+          shape: {
+            type: "image",
+            image: {
+              src: "images/strawberry.png",
+              width: 20,
+              height: 20
+            }
+          },
+          size: { value: 12 },
+          opacity: { value: 0.7 },
+          move: {
+            enable: true,
+            speed: 0.5,
+            direction: "bottom",
+            outModes: { default: "out" }
+          }
+        }
+      }
+    },
+    interactivity: {
+      events: {
+        onHover: { enable: true, mode: "grab" }
+      },
+      modes: {
+        grab: {
+          distance: 140,
+          links: { opacity: 0.5 }
+        }
+      }
+    }
   });
 </script>
 </html>
