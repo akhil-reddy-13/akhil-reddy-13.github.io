@@ -13,7 +13,8 @@
       if (window.vantaEffect) window.vantaEffect.destroy();
       const isDark = document.body.classList.contains('dark');
       const isMatcha = document.body.classList.contains('matcha');
-      const bgColor = isDark ? 0x1a1a1a : isMatcha ? 0xf3fce8 : 0xffffff;
+      // Use matcha background #b9dca9
+      const bgColor = isDark ? 0x1a1a1a : isMatcha ? 0xb9dca9 : 0xffffff;
       const lineColor = isDark ? 0xcccccc : isMatcha ? 0xcc887a : 0x333333;
       window.vantaEffect = VANTA.NET({
         el: "#home",
@@ -157,7 +158,7 @@
       justify-content: center;
       gap: 1rem;
       margin-bottom: 0.5rem;
-      background-color: #b9dca9;
+      background-color: #fc9fb1;
       padding: 0.5rem 1rem;
       border-radius: 8px;
     }
@@ -474,7 +475,7 @@
         opacity: 0.3,
         width: 1
       },
-      // Add strawberry images as a group
+      // Particle image groups: strawberries & drinks
       groups: {
         strawberries: {
           number: { value: 10 },
@@ -492,6 +493,25 @@
             enable: true,
             speed: 0.5,
             direction: "bottom",
+            outModes: { default: "out" }
+          }
+        },
+        drinks: {
+          number: { value: 6 },
+          shape: {
+            type: "image",
+            image: {
+              src: "images/matcha_drink.png",
+              width: 28,
+              height: 28
+            }
+          },
+          size: { value: 14 },
+          opacity: { value: 0.65 },
+          move: {
+            enable: true,
+            speed: 0.6,
+            direction: "top",
             outModes: { default: "out" }
           }
         }
