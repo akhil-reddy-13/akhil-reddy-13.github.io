@@ -150,6 +150,11 @@
     .tab-content {
       display: none;
     }
+    #home {
+      position: relative;
+      min-height: 100vh;
+      z-index: 0;
+    }
     h2 {
       margin-top: 0;
       color: var(--fg);
@@ -261,8 +266,10 @@
     </header>
 
     <section id="home" class="tab-content" style="display: block;">
-      <h2>Welcome</h2>
-      <p>Welcome to my website!</p>
+      <div style="position: relative; z-index: 1;">
+        <h2>Welcome</h2>
+        <p>Welcome to my website!</p>
+      </div>
     </section>
 
     <section id="experience" class="tab-content">
@@ -360,7 +367,7 @@
 </script>
 <script>
   VANTA.NET({
-    el: "body",
+    el: "#home",
     mouseControls: true,
     touchControls: true,
     gyroControls: false,
