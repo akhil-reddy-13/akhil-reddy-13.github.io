@@ -171,13 +171,6 @@ body {
   line-height: 1.4;
 }
 
-/* Music & coffee live in the right rail on desktop */
-@media (min-width: 861px) {
-  .mobile-nav__link--rail {
-    display: none;
-  }
-}
-
 .nav {
   display: flex;
   flex-direction: column;
