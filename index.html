@@ -3,516 +3,264 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Akhil Reddy — CS & Math at Stanford. Builder, consultant, and occasional poet." />
   <title>Akhil Reddy</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
-  <link rel="icon" type="image/png" href="images/pfp.png" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
-  <script>
-    function updateVantaTheme() {
-      if (window.vantaEffect) window.vantaEffect.destroy();
-      const isDark = document.body.classList.contains('dark');
-      const isMatcha = document.body.classList.contains('matcha');
-      // Use matcha background #fc9fb1
-      const bgColor = isDark ? 0x1a1a1a : isMatcha ? 0xffffff : 0xffffff;
-      const lineColor = isDark ? 0xcccccc : isMatcha ? 0x74a12e : 0x333333;
-      window.vantaEffect = VANTA.NET({
-        el: "#home",
-        mouseControls: true,
-        touchControls: true,
-        gyroControls: false,
-        minHeight: 200.00,
-        minWidth: 200.00,
-        scale: 1.0,
-        scaleMobile: 1.0,
-        color: lineColor,
-        backgroundColor: bgColor,
-        points: 20.0,
-        maxDistance: 30.0,
-        spacing: 12.0
-      });
-    }
-
-    function toggleDarkMode() {
-      const body = document.body;
-      if (body.classList.contains('dark')) {
-        body.classList.remove('dark');
-        body.classList.add('matcha');
-        document.getElementById('theme-icon').textContent = '🍵';
-      } else if (body.classList.contains('matcha')) {
-        body.classList.remove('matcha');
-        document.getElementById('theme-icon').textContent = '⏾';
-      } else {
-        body.classList.add('dark');
-        document.getElementById('theme-icon').textContent = '☀︎';
-      }
-      updateVantaTheme();
-    }
-
-    function showTab(tabId) {
-      document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
-      document.getElementById(tabId).style.display = 'block';
-    }
-
-    window.onload = () => {
-      document.body.classList.add('matcha');
-      document.getElementById('theme-icon').textContent = '🍵';
-      showTab('home');
-      updateVantaTheme();
-    };
-  </script>
-  <style>
-    :root {
-      --bg: #ffffff;
-      --fg: #1a1a1a;
-      --accent: #cccccc;
-      --accent-hover: #e6e6e6;
-      --text-subtle: #666;
-    }
-    .dark {
-      --bg: #1a1a1a;
-      --fg: #ffffff;
-      --accent: #666666;
-      --accent-hover: #4d4d4d;
-      --text-subtle: #ccc;
-    }
-    .matcha {
-      --bg: #ffffff;
-      --fg: #2d3c29;
-      --accent: #b9dca9;
-      --accent-hover: #74a12e;
-      --text-subtle: #fc9fb1;
-    }
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background-color: transparent;
-      color: var(--text-subtle);
-      display: flex;
-      min-height: 100vh;
-    }
-    aside {
-      width: 25%;
-      padding: 1.2rem 2rem 1rem 2rem;
-      background-color: var(--bg);
-      border-right: 1px solid #ccc;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      align-items: center;
-      text-align: center;
-    }
-    .contact-box {
-      background-color: #fc9fb1;
-      border-radius: 12px;
-      padding: 0.4rem 0.6rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      color: var(--fg);
-      font-weight: 600;
-      font-size: 0.9rem;
-    }
-    .contact-icon {
-      font-size: 1.5rem;
-      user-select: none;
-    }
-    main {
-      flex: 1;
-      padding: 2rem;
-      opacity: 0;
-      animation: fadeIn 1.2s ease forwards;
-      background-color: var(--bg);
-      position: relative;
-      z-index: 1;
-    }
-
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
-    }
-    .profile-pic {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 0.8rem;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .socials {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      align-items: center;
-    }
-    .socials img {
-      width: 24px;
-      height: 24px;
-    }
-    .social-container {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-bottom: 0.5rem;
-      background-color: #fc9fb1;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-    }
-    .github-fix {
-      background-color: #000;
-      border-radius: 50%;
-      width: 28px;
-      height: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 2rem;
-    }
-    nav a {
-      margin-left: 1rem;
-      padding: 0.4rem 0.75rem;
-      border: 1px solid var(--accent);
-      border-radius: 5px;
-      background-color: transparent;
-      color: var(--accent);
-      font-weight: 600;
-      text-decoration: none;
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
-    nav a:hover {
-      background-color: var(--accent-hover);
-      color: var(--fg);
-    }
-    #theme-icon {
-      margin-left: 0.5rem;
-      cursor: pointer;
-      user-select: none;
-    }
-    .tab-content {
-      display: none;
-    }
-    #home {
-      position: relative;
-      min-height: 100vh;
-      z-index: 0;
-    }
-    h2 {
-      margin-top: 0;
-      color: var(--fg);
-    }
-    .experience-entry {
-      background-color: var(--accent);
-      border-radius: 8px;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      color: var(--fg);
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .experience-entry.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .experience-entry:hover {
-      transform: translateY(0) scale(1.02);
-      background-color: var(--accent-hover);
-    }
-    .experience-logo {
-      width: 48px;
-      height: 48px;
-      object-fit: contain;
-      flex-shrink: 0;
-    }
-    .experience-details {
-      flex: 1;
-    }
-    .experience-dates {
-      font-size: 0.85rem;
-      color: var(--text-subtle);
-      white-space: nowrap;
-      flex-shrink: 0;
-      text-align: right;
-    }
-    ul {
-      padding-left: 1.2rem;
-      color: var(--fg);
-    }
-    hr {
-      margin-top: 0.25rem;
-      margin-bottom: 0.25rem;
-      border: none;
-      border-top: 1px solid var(--accent);
-      width: 100%;
-    }
-    #matcha-particles {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
-      background: transparent;
-    }
-  </style>
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.11.1/tsparticles.bundle.min.js"></script>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect fill='%231ed760' width='32' height='32' rx='6'/><text x='16' y='22' text-anchor='middle' fill='%230a0a0a' font-size='14' font-family='system-ui' font-weight='700'>A</text></svg>" />
 </head>
 <body>
-  <div id="matcha-particles"></div>
-  <aside>
-    <img class="profile-pic" src="images/pfp.png" alt="Akhil Reddy" />
-    <div style="font-size:1.35rem; font-weight:700; color:var(--fg); margin-bottom: 0.25rem;">Akhil Reddy</div>
-    <div style="font-size:1rem; color:var(--text-subtle); margin-bottom: 1rem;">Stanford University</div>
-    <hr />
-    <div style="color: var(--fg); margin-bottom: 0.25rem; font-weight: 600;">About Me</div>
-    <div style="margin-bottom: 0.75rem; color: var(--fg);">
-      Hi! I'm Akhil, a Stanford student exploring the intersections of computer science, mathematics, and business. From building productivity tools to leading civic engagement in Kansas, I’m passionate about using technology and storytelling to drive impact.
-    </div>
-    <hr />
-    <div class="social-container">
-      <div class="socials">
-        <a href="https://github.com/akhil-reddy-13" target="_blank" rel="noopener noreferrer">
-          <div class="github-fix">
-            <img src="images/github.png" alt="GitHub" />
-          </div>
-        </a>
-        <a href="https://linkedin.com/in/akhilreddy1312" target="_blank" rel="noopener noreferrer">
-          <img src="images/linkedin.png" alt="LinkedIn" />
-        </a>
-        <a href="mailto:asreddy@stanford.edu">
-          <img src="images/mail.png" alt="Email" />
-        </a>
-      </div>
-    </div>
-    <hr />
-    <div style="color: var(--fg); font-weight:600; margin-bottom:0.1rem; font-size:1.05rem;">Contact</div>
-    <div class="contact-box">
-      <span class="contact-icon">✉️</span>
-      <div>asreddy@stanford.edu</div>
-    </div>
-    <div class="contact-box">
-      <span class="contact-icon">📞</span>
-      <div>(913) 484-9144</div>
-    </div>
-    <div class="contact-box">
-      <span class="contact-icon">📍</span>
-      <div>Overland Park, KS</div>
-    </div>
-  </aside>
-  <main>
-    <header>
+
+  <div class="ambient" aria-hidden="true">
+    <div class="ambient__orb ambient__orb--1"></div>
+    <div class="ambient__orb ambient__orb--2"></div>
+    <div class="ambient__orb ambient__orb--3"></div>
+  </div>
+
+  <header class="mobile-header">
+    <a href="#" class="sidebar__brand">
+      <div class="avatar">AR</div>
       <div>
-        <strong>Akhil Reddy</strong><br />
-        <small>Stanford University</small>
+        <div class="sidebar__name">Akhil Reddy</div>
+        <div class="sidebar__tag">Stanford · CS + Math</div>
       </div>
-      <nav>
-        <a onclick="showTab('home')">Home</a>
-        <a onclick="showTab('experience')">Experience</a>
-        <a onclick="showTab('projects')">Projects</a>
-        <a onclick="showTab('education')">Education</a>
-        <a onclick="showTab('publications')">Publications</a>
-        <a onclick="showTab('awards')">Awards</a>
-        <span id="theme-icon" onclick="toggleDarkMode()">🌙</span>
+    </a>
+    <a href="mailto:asreddy@stanford.edu" class="btn">email</a>
+  </header>
+
+  <nav class="mobile-nav" aria-label="Mobile navigation">
+    <div class="mobile-nav__inner">
+      <a href="#home" class="mobile-nav__link active" data-nav>Home</a>
+      <a href="#experience" class="mobile-nav__link" data-nav>Work</a>
+      <a href="#projects" class="mobile-nav__link" data-nav>Projects</a>
+      <a href="#music" class="mobile-nav__link" data-nav>Music</a>
+      <a href="#beli" class="mobile-nav__link" data-nav>Beli</a>
+      <a href="#writing" class="mobile-nav__link" data-nav>Writing</a>
+      <a href="#contact" class="mobile-nav__link" data-nav>Contact</a>
+    </div>
+  </nav>
+
+  <div class="app">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <a href="#home" class="sidebar__brand">
+        <div class="avatar" id="avatar">
+          <!-- Drop your new photo at images/pfp.jpg and uncomment: -->
+          <!-- <img src="images/pfp.jpg" alt="Akhil Reddy" /> -->
+          AR
+        </div>
+        <div>
+          <div class="sidebar__name">Akhil Reddy</div>
+          <div class="sidebar__tag">Stanford · CS + Math</div>
+        </div>
+      </a>
+
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#home" class="nav__link active" data-nav>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l9 8v10h-6v-6H9v6H3V11l9-8z"/></svg>
+          Home
+        </a>
+        <a href="#experience" class="nav__link" data-nav>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-4V4c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-6 0h-4V4h4v2z"/></svg>
+          Experience
+        </a>
+        <a href="#projects" class="nav__link" data-nav>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16v2H4zm0 5h10v2H4zm0 5h16v2H4z"/></svg>
+          Projects
+        </a>
+        <a href="#education" class="nav__link" data-nav>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L1 9l4 2.2V17h14v-5.8L23 9 12 3zm0 3.5L18 9l-6 2.5L6 9l6-2.5zM5 19h14v2H5z"/></svg>
+          Education
+        </a>
+
+        <a href="#music" class="nav__link" data-nav>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg>
+          Music
+        </a>
+        <a href="#beli" class="nav__link" data-nav>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2h-5z"/></svg>
+          Beli
+        </a>
+        <a href="#writing" class="nav__link" data-nav>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+          Writing
+        </a>
+        <a href="#contact" class="nav__link" data-nav>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          Contact
+        </a>
       </nav>
-    </header>
 
-    <section id="home" class="tab-content" style="display: block;">
-      <div style="position: relative; z-index: 1;">
-        <h2>Welcome</h2>
-        <p>Welcome to my website!</p>
+      <div class="sidebar__socials">
+        <a href="https://github.com/akhil-reddy-13" class="social-btn" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+        <a href="https://linkedin.com/in/akhilreddy1312" class="social-btn" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="mailto:asreddy@stanford.edu" class="social-btn" aria-label="Email">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </a>
       </div>
-    </section>
+    </aside>
 
-    <section id="experience" class="tab-content">
-      <h2>Experience</h2>
-      <div class="experience-entry">
-        <img class="experience-logo" src="images/pipeline.png" alt="Pipeline Entrepreneurs" />
-        <div class="experience-details">
-          <strong>Marketing Intern</strong>, Pipeline Entrepreneurs<br />
-          Digital storytelling, fellow spotlights, social media.
-        </div>
-        <div class="experience-dates">2025</div>
-      </div>
-      <div class="experience-entry">
-        <img class="experience-logo" src="images/vot.png" alt="Voters of Tomorrow" />
-        <div class="experience-details">
-          <strong>Kansas President</strong>, Voters of Tomorrow<br />
-          Led executive board, organized civic campaigns reaching 5000+ voters.
-        </div>
-        <div class="experience-dates">2023–2025</div>
-      </div>
-      <div class="experience-entry">
-        <img class="experience-logo" src="images/op.png" alt="Overland Park" />
-        <div class="experience-details">
-          <strong>Vice President & Youth Liaison</strong>, Overland Park Teen Council<br />
-          Advised city initiatives, volunteered 60+ hours on community projects.
-        </div>
-        <div class="experience-dates">2022–2025</div>
-      </div>
-      <div class="experience-entry">
-        <img class="experience-logo" src="images/ttt.png" alt="Teen Think Tank Project" />
-        <div class="experience-details">
-          <strong>Research Associate</strong>, Teen Think Tank Project<br />
-          Wrote framework on inequality & housing. Most Outstanding Research Associate.
-        </div>
-        <div class="experience-dates">Jul–Aug 2024</div>
-      </div>
-    </section>
+    <!-- Main -->
+    <main class="main">
+      <div class="main__inner">
 
-    <section id="projects" class="tab-content">
-      <h2>Projects</h2>
-      <p><strong>Sprout</strong> – Smart launcher app to boost productivity. Built with Python, Sprout streamlines your workflow by providing quick access to your most-used apps and documents, customizable shortcuts, and intelligent suggestions based on your habits.</p>
-      <p><strong>Pong</strong> – Classic arcade game recreated with modern twists and AI opponents. A fun project to explore game development fundamentals.</p>
-      <p><strong>HSV Spirograph</strong> – A creative visualization tool generating colorful spirograph patterns using HSV color space. Designed to experiment with color theory and graphics programming.</p>
-    </section>
+      <!-- Home -->
+      <section class="intro" id="home">
+        <p>
+          I'm <strong>Akhil</strong>, studying CS and math at Stanford. I work on software and product — right now at <strong>LVL3.AI</strong> and through <strong>Stanford Management Group</strong> (Gemini, LinkedIn).
+        </p>
+        <p>
+          I also build crosswords for <a href="https://www.stanforddaily.com/" target="_blank" rel="noopener">The Stanford Daily</a>, lessons at the <strong>PinCS Lab</strong>, and side projects when I have time.
+        </p>
+        <p class="intro__now">
+          <span>Based in</span> Stanford, CA · from Overland Park, KS
+        </p>
+      </section>
 
-    <section id="education" class="tab-content">
-      <h2>Education</h2>
-      <div class="experience-entry">
-        <img class="experience-logo" src="images/stanford.png" alt="Stanford University" />
-        <div class="experience-details">
-          <strong>Stanford University</strong> (Expected 2028)<br />B.S. Computer Science, Mathematics
+      <section class="section" id="music">
+        <h2 class="section__title">Music</h2>
+        <div id="spotify-player" class="spotify-player" aria-label="Spotify now playing"></div>
+        <p class="section__meta" id="spotify-meta"></p>
+      </section>
+
+      <!-- Experience -->
+      <section class="section" id="experience">
+        <h2 class="section__title">Experience</h2>
+        <div class="exp-list">
+
+          <article class="exp-item">
+            <p class="exp-item__headline">Software Engineering &amp; Product Intern · LVL3.AI <span class="exp-item__when">May 2026 – Present</span></p>
+            <p class="exp-item__desc">Building a React/TypeScript natural language interface to orchestrate VM swarms and real-time dashboards for agent orchestration.</p>
+          </article>
+
+          <article class="exp-item">
+            <p class="exp-item__headline">Product &amp; Growth Consultant · Google Gemini <span class="exp-item__when">Apr 2026 – Present</span></p>
+            <p class="exp-item__desc">Go-to-market strategy for Gemini on 100+ campuses via Stanford Management Group — personas, playbooks, and wireframes.</p>
+          </article>
+
+          <article class="exp-item">
+            <p class="exp-item__headline">Software &amp; Lesson Developer · PinCS Lab, Stanford <span class="exp-item__when">Oct 2025 – Present</span></p>
+            <p class="exp-item__desc">Developed 10+ TypeScript interactive lessons for high school CS curricula; leading pilots for 300+ students.</p>
+          </article>
+
+          <article class="exp-item">
+            <p class="exp-item__headline">UX Consultant · LinkedIn <span class="exp-item__when">Jan – Mar 2026</span></p>
+            <p class="exp-item__desc">Architected viral feedback loops and retention hooks for daily games; delivered 50+ product specs from funnel analysis.</p>
+          </article>
+
+          <article class="exp-item">
+            <p class="exp-item__headline">Consultant · Stanford Management Group <span class="exp-item__when">Dec 2025 – Present</span></p>
+            <p class="exp-item__desc">Product, growth, and UX consulting for Gemini, LinkedIn, and other clients.</p>
+          </article>
+
+          <article class="exp-item">
+            <p class="exp-item__headline">Marketing &amp; Project Intern · Pipeline Entrepreneurs <span class="exp-item__when">Jul – Aug 2025</span></p>
+            <p class="exp-item__desc">Designed 40+ spotlights and graphics; managed outreach to 1.5K+ contacts and converted 20+ fellowship applicants.</p>
+          </article>
+
         </div>
-      </div>
-      <div class="experience-entry">
-        <img class="experience-logo" src="images/bvhs.png" alt="Blue Valley High School" />
-        <div class="experience-details">
-          <strong>Blue Valley High School</strong> (2025)<br />GPA: 4.82 | ACT: 36 | KS Governor’s Scholar Award
+      </section>
+
+      <!-- Projects -->
+      <section class="section" id="projects">
+        <h2 class="section__title">Projects</h2>
+        <div class="project-list">
+          <article class="project-entry">
+            <div class="project-entry__title"><a href="https://github.com/akhil-reddy-13" target="_blank" rel="noopener">Custom Crossclimb</a></div>
+            <div class="project-entry__desc">Word ladder puzzles from a 100K+ dictionary using BFS. React frontend, custom validation pipeline.</div>
+            <div class="project-entry__meta">React · TypeScript</div>
+          </article>
+          <article class="project-entry">
+            <div class="project-entry__title"><a href="https://github.com/akhil-reddy-13" target="_blank" rel="noopener">Sprout</a></div>
+            <div class="project-entry__desc">macOS workspace launcher with fuzzy search and Spotify deep-link parsing.</div>
+            <div class="project-entry__meta">Python · CustomTkinter</div>
+          </article>
         </div>
+      </section>
+
+      <section class="section" id="beli">
+        <h2 class="section__title">Beli</h2>
+        <p class="section__meta" id="beli-meta">Places I've rated</p>
+        <div class="beli-list" id="beli-list"></div>
+      </section>
+
+      <!-- Education -->
+      <section class="section" id="education">
+        <h2 class="section__title">Education</h2>
+        <div class="edu-card">
+          <img class="edu-card__logo" src="https://www.google.com/s2/favicons?domain=stanford.edu&amp;sz=128" alt="" width="44" height="44" />
+          <div>
+            <div class="edu-card__school">Stanford University</div>
+            <div class="edu-card__degree">B.S. Computer Science &amp; Mathematics · Expected June 2028</div>
+            <div class="edu-card__detail">
+              Activities: Stanford Management Group, PinCS Lab, The Stanford Daily (Crosswords).<br />
+              Coursework: Data Structures, Computer Systems, Optimization &amp; ML, Discrete Math, Linear Algebra, Multivariable Calc, Differential Equations, C++.
+            </div>
+          </div>
+        </div>
+        <div class="edu-card">
+          <img class="edu-card__logo" src="https://www.google.com/s2/favicons?domain=bluevalleyk12.org&amp;sz=128" alt="" width="44" height="44" />
+          <div>
+            <div class="edu-card__school">Blue Valley High School</div>
+            <div class="edu-card__degree">Overland Park, KS · Class of 2025</div>
+            <div class="edu-card__detail">
+              GPA 4.82 · ACT 36 · KS Governor's Scholar · Speech &amp; Debate VP · Mu Alpha Theta VP
+            </div>
+          </div>
+        </div>
+
+        <h3 style="font-size:1.1rem;font-weight:700;margin:2.5rem 0 1rem;">Honors &amp; awards</h3>
+        <ul class="awards-list">
+          <li>Top 4, International Public Policy Forum <span class="awards-list__year">2025</span></li>
+          <li>1st Place, Eloquence Speech Competition <span class="awards-list__year">2024</span></li>
+          <li>Wes Fry Speech Contest Champion <span class="awards-list__year">2022 &amp; 2024</span></li>
+          <li>Top 60, NSDA International Extemp <span class="awards-list__year">2024</span></li>
+          <li>Premier Distinction, National Speech &amp; Debate Association</li>
+          <li>KS Governor's Scholar Award</li>
+        </ul>
+      </section>
+
+      <!-- Writing / journal -->
+      <section class="section" id="writing">
+        <h2 class="section__title">Writing</h2>
+        <p class="section__desc" style="margin-bottom:0;">Journal entries and poetry — coming soon.</p>
+      </section>
+
+      <!-- Contact -->
+      <section class="section" id="contact">
+        <h2 class="section__title">Contact</h2>
+        <div class="contact-grid">
+          <a href="mailto:asreddy@stanford.edu" class="contact-item">
+            <div class="contact-item__label">Email</div>
+            <div class="contact-item__value">asreddy@stanford.edu</div>
+          </a>
+          <a href="https://linkedin.com/in/akhilreddy1312" class="contact-item" target="_blank" rel="noopener">
+            <div class="contact-item__label">LinkedIn</div>
+            <div class="contact-item__value">/in/akhilreddy1312</div>
+          </a>
+          <a href="https://github.com/akhil-reddy-13" class="contact-item" target="_blank" rel="noopener">
+            <div class="contact-item__label">GitHub</div>
+            <div class="contact-item__value">@akhil-reddy-13</div>
+          </a>
+          <div class="contact-item">
+            <div class="contact-item__label">Location</div>
+            <div class="contact-item__value">Stanford, CA · from Overland Park, KS</div>
+          </div>
+        </div>
+        <footer class="footer">
+          <span>© <span id="year">2026</span> Akhil Reddy</span>
+          <span>akhil-reddy-13.github.io</span>
+        </footer>
+      </section>
+
       </div>
-    </section>
+    </main>
+  </div>
 
-    <section id="publications" class="tab-content">
-      <h2>Publications</h2>
-      <p>Economic inequality & U.S. housing crisis framework – Teen Think Tank Project (2024)</p>
-    </section>
-
-    <section id="awards" class="tab-content">
-      <h2>Awards</h2>
-      <ul>
-        <li>International Public Policy Forum – Top 8 (2024–2025)</li>
-        <li>Wes Fry Speech Contest – 2022 & 2024 Champion</li>
-        <li>Eloquence Speech Competition – 1st Place (U18, 2024)</li>
-        <li>Top 60 – NSDA International Extemp (2024)</li>
-        <li>Premier Distinction – National Speech & Debate Association</li>
-      </ul>
-    </section>
-    <footer style="text-align:center; margin-top: 4rem; font-size: 0.9rem; color: var(--text-subtle);">
-      © 2025 Akhil Reddy. All rights reserved.
-    </footer>
-  </main>
+  <script src="assets/js/main.js"></script>
 </body>
-<script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.experience-entry').forEach(entry => {
-    observer.observe(entry);
-  });
-</script>
-<script>
-  tsParticles.load("matcha-particles", {
-    fullScreen: { enable: false },
-    background: { color: { value: "transparent" } },
-    particles: {
-      number: { value: 75 },
-      shape: {
-        type: "polygon",
-        polygon: { sides: 6 }
-      },
-      size: { value: 4 },
-      color: {
-        value: ["#74a12e", "#b9dca9", "#fc9fb1", "#fcbacb"]
-      },
-      opacity: { value: 0.6 },
-      move: {
-        enable: true,
-        speed: 1,
-        outModes: { default: "bounce" },
-        direction: "none"
-      },
-      links: {
-        enable: true,
-        distance: 120,
-        color: "#b9dca9",
-        opacity: 0.3,
-        width: 1
-      },
-      // Particle image groups: strawberries & drinks
-      groups: {
-        strawberries: {
-          number: { value: 10 },
-          shape: {
-            type: "image",
-            image: {
-              src: "images/strawberry.png",
-              width: 20,
-              height: 20
-            }
-          },
-          size: { value: 12 },
-          opacity: { value: 0.7 },
-          move: {
-            enable: true,
-            speed: 0.5,
-            direction: "bottom",
-            outModes: { default: "out" }
-          }
-        },
-        drinks: {
-          number: { value: 6 },
-          shape: {
-            type: "image",
-            image: {
-              src: "images/matcha_drink.png",
-              width: 28,
-              height: 28
-            }
-          },
-          size: { value: 14 },
-          opacity: { value: 0.65 },
-          move: {
-            enable: true,
-            speed: 0.6,
-            direction: "top",
-            outModes: { default: "out" }
-          }
-        }
-      }
-    },
-    interactivity: {
-      events: {
-        onHover: { enable: true, mode: "grab" }
-      },
-      modes: {
-        grab: {
-          distance: 140,
-          links: { opacity: 0.5 }
-        }
-      }
-    }
-  });
-</script>
 </html>
