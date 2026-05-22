@@ -1,31 +1,95 @@
 {
-  "updated": "2026-05-22T05:07:36.116999+00:00",
+  "updated": "2026-05-22T05:18:34.430105+00:00",
   "profile": "https://open.spotify.com/user/lkuv124pttnovhci7n5od7cj9",
   "nowPlaying": {
-    "track_number": 1,
-    "name": "Hit the Wall",
-    "artist": "Gracie Abrams",
-    "album": "Hit the Wall",
+    "track_number": 2,
+    "name": "WNBA",
+    "artist": "Drake",
+    "album": "HABIBTI",
     "explicit": false,
-    "image": "https://i.scdn.co/image/ab67616d0000b2731f4ba58b0e4dcef24a8df0cf",
-    "url": "https://open.spotify.com/track/1U90UBmMrQTx9GNweUA4LZ",
-    "duration_ms": 194376,
-    "progress_ms": 147455,
+    "image": "https://i.scdn.co/image/ab67616d0000b273bb0ef065b3eecc5f1c9ab26b",
+    "url": "https://open.spotify.com/track/3eHowfem30H7LCVXbgk6Rn",
+    "duration_ms": 178082,
+    "progress_ms": 38486,
     "is_playing": true
   },
   "albumTracks": [
     {
       "track_number": 1,
-      "name": "Hit the Wall",
-      "artist": "Gracie Abrams",
+      "name": "Rusty Intro",
+      "artist": "Drake",
       "album": null,
       "explicit": false,
       "image": null,
-      "url": "https://open.spotify.com/track/1U90UBmMrQTx9GNweUA4LZ",
-      "duration_ms": 194376
+      "url": "https://open.spotify.com/track/13Vh2qBbmpwpkYovSstHYi",
+      "duration_ms": 62303
+    },
+    {
+      "track_number": 2,
+      "name": "WNBA",
+      "artist": "Drake",
+      "album": null,
+      "explicit": false,
+      "image": null,
+      "url": "https://open.spotify.com/track/3eHowfem30H7LCVXbgk6Rn",
+      "duration_ms": 178082
+    },
+    {
+      "track_number": 3,
+      "name": "Slap The City",
+      "artist": "Drake",
+      "album": null,
+      "explicit": false,
+      "image": null,
+      "url": "https://open.spotify.com/track/7phNK3L4kopD5NcGnkKOqQ",
+      "duration_ms": 202105
     }
   ],
   "tracks": [
+    {
+      "track_number": 2,
+      "name": "Road Trips",
+      "artist": "Drake",
+      "album": "MAID OF HONOUR",
+      "explicit": true,
+      "image": "https://i.scdn.co/image/ab67616d0000b273539bb112d7c970545dd971e3",
+      "url": "https://open.spotify.com/track/6p0Ai6wRjz9CmjqkhoKOwf",
+      "duration_ms": 243232,
+      "played_at": "2026-05-22T05:17:58.010Z"
+    },
+    {
+      "track_number": 1,
+      "name": "Untouchable",
+      "artist": "ELIKIA",
+      "album": "Untouchable",
+      "explicit": false,
+      "image": "https://i.scdn.co/image/ab67616d0000b2738b18983a35f6481ba3079dfa",
+      "url": "https://open.spotify.com/track/41uFEX67P1Jp6gnli9FH53",
+      "duration_ms": 151240,
+      "played_at": "2026-05-22T05:13:53.466Z"
+    },
+    {
+      "track_number": 1,
+      "name": "Tied Up",
+      "artist": "Khalid, Lauv",
+      "album": "Tied Up",
+      "explicit": false,
+      "image": "https://i.scdn.co/image/ab67616d0000b27340bfe05ea0defa02a9890d83",
+      "url": "https://open.spotify.com/track/7xS2v5Ww3Bz1SDJ5jPumws",
+      "duration_ms": 176107,
+      "played_at": "2026-05-22T05:11:21.835Z"
+    },
+    {
+      "track_number": 1,
+      "name": "Hit the Wall",
+      "artist": "Gracie Abrams",
+      "album": "Hit the Wall",
+      "explicit": false,
+      "image": "https://i.scdn.co/image/ab67616d0000b2731f4ba58b0e4dcef24a8df0cf",
+      "url": "https://open.spotify.com/track/1U90UBmMrQTx9GNweUA4LZ",
+      "duration_ms": 194376,
+      "played_at": "2026-05-22T05:08:24.844Z"
+    },
     {
       "track_number": 15,
       "name": "VIOLET",
@@ -69,50 +133,6 @@
       "url": "https://open.spotify.com/track/6kPJZM97LwdG9QIsT7khp6",
       "duration_ms": 222653,
       "played_at": "2026-05-22T04:55:35.461Z"
-    },
-    {
-      "track_number": 5,
-      "name": "Mama (feat. Ellie Goulding)",
-      "artist": "Clean Bandit, Ellie Goulding",
-      "album": "What Is Love? (Deluxe Edition)",
-      "explicit": false,
-      "image": "https://i.scdn.co/image/ab67616d0000b2735c66e925d8fe4c92ebfb49ed",
-      "url": "https://open.spotify.com/track/3WDIhWoRWVcaHdRwMEHkkS",
-      "duration_ms": 189973,
-      "played_at": "2026-05-22T04:51:52.570Z"
-    },
-    {
-      "track_number": 1,
-      "name": "Journey",
-      "artist": "Rvssian, Elley Duh\u00e9",
-      "album": "Journey",
-      "explicit": false,
-      "image": "https://i.scdn.co/image/ab67616d0000b273fdbcfe1c477d4431dfeed9ba",
-      "url": "https://open.spotify.com/track/5yJO9u80NtI0gMzNppxmrq",
-      "duration_ms": 174750,
-      "played_at": "2026-05-22T04:44:24.949Z"
-    },
-    {
-      "track_number": 1,
-      "name": "Journey",
-      "artist": "Rvssian, Elley Duh\u00e9",
-      "album": "Journey",
-      "explicit": false,
-      "image": "https://i.scdn.co/image/ab67616d0000b273fdbcfe1c477d4431dfeed9ba",
-      "url": "https://open.spotify.com/track/5yJO9u80NtI0gMzNppxmrq",
-      "duration_ms": 174750,
-      "played_at": "2026-05-22T04:40:06.801Z"
-    },
-    {
-      "track_number": 1,
-      "name": "drop dead",
-      "artist": "Olivia Rodrigo",
-      "album": "drop dead",
-      "explicit": false,
-      "image": "https://i.scdn.co/image/ab67616d0000b273c25b53f0a34aa1bb4f77cb3e",
-      "url": "https://open.spotify.com/track/6gkbtMtioHgtyGjrMel6ei",
-      "duration_ms": 224998,
-      "played_at": "2026-05-22T04:37:11.541Z"
     }
   ]
 }
