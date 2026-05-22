@@ -1,0 +1,44 @@
+{
+  "kind": "top_tracks",
+  "title": "All-time favorites",
+  "subtitle": "From my Spotify",
+  "image": "https://i.scdn.co/image/ab67616d0000b2734a66ee1a8cdd72378eb56765",
+  "url": "https://open.spotify.com/user/lkuv124pttnovhci7n5od7cj9",
+  "embed_url": "https://open.spotify.com/embed/track/2OZVskV28xxJjjhQqKTLSg?utm_source=generator&theme=0",
+  "tracks": [
+    {
+      "number": 1,
+      "name": "PIXELATED KISSES",
+      "artist": "Joji",
+      "explicit": true,
+      "url": "https://open.spotify.com/track/2OZVskV28xxJjjhQqKTLSg",
+      "image": "https://i.scdn.co/image/ab67616d0000b2734a66ee1a8cdd72378eb56765"
+    },
+    {
+      "number": 2,
+      "name": "@% (Alpha Percent)",
+      "artist": "tripleS",
+      "explicit": false,
+      "url": "https://open.spotify.com/track/1jsUeXn3EMlCaSbtocZgSp",
+      "image": "https://i.scdn.co/image/ab67616d0000b2738f233fd369e5a47b637d00c6"
+    },
+    {
+      "number": 3,
+      "name": "Diet Pepsi",
+      "artist": "Addison Rae",
+      "explicit": false,
+      "url": "https://open.spotify.com/track/6MzofobZt2dm0Kf1hTThFz",
+      "image": "https://i.scdn.co/image/ab67616d0000b273316905a371bd81c2eca8a24f"
+    },
+    {
+      "number": 4,
+      "name": "Risk",
+      "artist": "Gracie Abrams",
+      "explicit": false,
+      "url": "https://open.spotify.com/track/0gZGUAO42F1HmzZWHNPGAu",
+      "image": "https://i.scdn.co/image/ab67616d0000b2736e2101520787791370f4a96b"
+    }
+  ],
+  "updated": "2026-05-22T06:47:42.803795+00:00",
+  "profile": "https://open.spotify.com/user/lkuv124pttnovhci7n5od7cj9"
+}

@@ -1,44 +1,42 @@
-# Spotify (reuse Musona app)
+# Music showcase
 
-Your portfolio uses the **same Spotify Developer app as Musona** — one API key, two projects. No second app needed.
+Pick what shows on your site in **`data/music.config.json`**, then sync.
 
-## GitHub Actions secrets
+## Configure (`data/music.config.json`)
 
-Copy from `~/Musona/.env` into **GitHub → Settings → Secrets → Actions**:
+**All-time favorites** (default):
 
-| Secret | Source |
-|--------|--------|
-| `SPOTIFY_CLIENT_ID` | Musona `.env` |
-| `SPOTIFY_CLIENT_SECRET` | Musona `.env` |
-| `SPOTIFY_REFRESH_TOKEN` | See below (one-time) |
-| `SPOTIFY_PROFILE_URL` | `https://open.spotify.com/user/lkuv124pttnovhci7n5od7cj9` |
-
-## One-time refresh token
-
-Musona stores tokens in your login session. The portfolio needs its own refresh token (same app):
-
-1. Spotify Dashboard → your app → **Redirect URIs**:
-   - **Remove** `https://localhost` if you added it (Spotify shows “Insecure”).
-   - **Add** `http://127.0.0.1:8765/callback` (not `localhost`).
-   - **Keep** Musona’s `http://127.0.0.1:3000/api/auth/callback/spotify`.
-   - Click **Save** at the bottom.
-2. Run:
-
-```bash
-python3 scripts/get_refresh_token.py
-# open the URL, sign in, copy ?code= from redirect
-python3 scripts/get_refresh_token.py YOUR_CODE
+```json
+{
+  "source": "top_tracks",
+  "title": "All-time favorites",
+  "subtitle": "From my Spotify"
+}
 ```
 
-3. Sync locally:
+**A playlist, album, or single track** — copy the link from Spotify:
+
+```json
+{
+  "source": "playlist",
+  "spotify_url": "https://open.spotify.com/playlist/YOUR_PLAYLIST_ID",
+  "title": "Spring '26",
+  "subtitle": "On repeat"
+}
+```
+
+Use `"source": "album"` or `"source": "track"` with the matching URL.
+
+## Sync locally
 
 ```bash
-chmod +x scripts/sync_spotify.sh
 ./scripts/sync_spotify.sh
 ```
 
-4. Add `SPOTIFY_REFRESH_TOKEN` from `.env` to GitHub secrets, then run **Actions → Update Spotify**.
+## GitHub
 
-## Beli
+Uses the same secrets as before (`SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_REFRESH_TOKEN`). Workflow **Update Music** runs weekly and updates `data/music.json`.
 
-Edit `data/beli.json` manually (no public API).
+## Play button
+
+Click **play** on the card to open Spotify’s embed and listen in-page (playlist/album/track you configured).

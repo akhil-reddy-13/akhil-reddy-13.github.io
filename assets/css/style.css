@@ -378,169 +378,195 @@ body {
   margin-top: 0.35rem;
 }
 
-/* Spotify player (Luan-style) */
-.spotify-player {
-  background: var(--player-bg);
-  border-radius: 14px;
-  padding: 1rem 1.1rem 0.9rem;
+/* Music widget (Luan-style, curated + embed) */
+.music-widget {
   width: 100%;
-  max-width: 32rem;
+  max-width: 36rem;
 }
 
-.spotify-player--empty {
+.music-card {
+  background: var(--player-bg);
+  border-radius: 16px;
+  padding: 1.1rem 1.15rem 1rem;
+}
+
+.music-card--empty {
   padding: 1.5rem;
   text-align: center;
   font-size: 0.88rem;
-  color: rgba(255,255,255,0.55);
+  color: rgba(255,255,255,0.5);
+  background: var(--player-bg);
+  border-radius: 16px;
 }
 
-.spotify-player__top {
+.music-card__top {
   display: grid;
-  grid-template-columns: 108px 1fr;
-  gap: 1rem;
-  margin-bottom: 0.85rem;
+  grid-template-columns: 120px 1fr;
+  gap: 1.15rem;
+  margin-bottom: 1rem;
 }
 
-.spotify-player__art-wrap { position: relative; }
+.music-card__art-wrap {
+  position: relative;
+  align-self: start;
+}
 
-.spotify-player__art {
-  width: 108px;
-  height: 108px;
-  border-radius: 6px;
+.music-card__art {
+  width: 120px;
+  height: 120px;
+  border-radius: 8px;
   object-fit: cover;
-  background: rgba(0,0,0,0.25);
+  background: rgba(0,0,0,0.3);
   display: block;
 }
 
-.spotify-player__brand {
+.music-card__brand {
   position: absolute;
-  top: 0;
-  right: -0.5rem;
-  width: 22px;
-  height: 22px;
-  opacity: 0.9;
+  top: 6px;
+  right: 6px;
+  width: 20px;
+  height: 20px;
+  opacity: 0.95;
 }
 
-.spotify-player__tracks {
+.music-card__tracks {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 0.55rem;
+  gap: 0.65rem;
   min-width: 0;
+  padding-top: 0.15rem;
 }
 
-.spotify-player__track {
+.music-card__track {
   display: grid;
-  grid-template-columns: 1.4rem 1fr;
-  gap: 0.4rem;
+  grid-template-columns: 1.25rem 1fr;
+  gap: 0.5rem;
   align-items: baseline;
-  font-size: 0.82rem;
-  color: rgba(255,255,255,0.45);
+  font-size: 0.84rem;
+  line-height: 1.35;
+  color: rgba(255,255,255,0.42);
   text-decoration: none;
-  transition: color 0.15s;
+  transition: color 0.12s;
 }
 
-.spotify-player__track:hover { color: rgba(255,255,255,0.75); }
+.music-card__track:hover { color: rgba(255,255,255,0.7); }
 
-.spotify-player__track--active {
+.music-card__track--on {
   color: #fff;
-  font-weight: 500;
 }
 
-.spotify-player__track-num {
-  font-family: var(--mono);
-  font-size: 0.78rem;
+.music-card__track-n {
+  font-size: 0.8rem;
   text-align: right;
+  font-variant-numeric: tabular-nums;
 }
 
-.spotify-player__track-title {
+.music-card__track-t {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.spotify-player__explicit {
+.music-card__e {
   display: inline-block;
   font-size: 0.55rem;
   font-weight: 700;
   border: 1px solid rgba(255,255,255,0.35);
-  padding: 0 0.2rem;
-  margin-right: 0.25rem;
-  vertical-align: middle;
-  line-height: 1.1;
+  padding: 0 0.15rem;
+  margin-right: 0.2rem;
+  vertical-align: 1px;
 }
 
-.spotify-player__bottom {
-  border-top: 1px solid rgba(255,255,255,0.08);
-  padding-top: 0.75rem;
+.music-card__foot {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 0.85rem;
 }
 
-.spotify-player__now {
-  font-size: 0.88rem;
-  font-weight: 500;
+.music-card__label {
+  font-size: 0.9rem;
+  font-weight: 600;
   color: #fff;
-  margin-bottom: 0.65rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  margin-bottom: 0.7rem;
+  letter-spacing: -0.01em;
 }
 
-.spotify-player__now a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.spotify-player__now a:hover { text-decoration: underline; }
-
-.spotify-player__controls {
+.music-card__controls {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
+  gap: 0.75rem;
 }
 
-.spotify-player__ctrl {
+.music-card__icon-btn {
   background: none;
   border: none;
-  color: rgba(255,255,255,0.7);
+  color: rgba(255,255,255,0.55);
   padding: 0;
+  cursor: pointer;
+  line-height: 0;
+  display: grid;
+  place-items: center;
+}
+
+.music-card__icon-btn:hover { color: #fff; }
+
+.music-card__bar {
+  flex: 1;
+  height: 3px;
+  background: rgba(255,255,255,0.18);
+  border-radius: 2px;
+}
+
+.music-card__bar-fill {
+  width: 28%;
+  height: 100%;
+  background: rgba(255,255,255,0.85);
+  border-radius: 2px;
+}
+
+.music-card__time {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.5);
+  font-variant-numeric: tabular-nums;
+  min-width: 2.25rem;
+}
+
+.music-card__play {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: #fff;
+  color: #111;
   cursor: pointer;
   display: grid;
   place-items: center;
-  line-height: 0;
-}
-
-.spotify-player__ctrl:hover { color: #fff; }
-
-.spotify-player__ctrl--play {
-  width: 36px;
-  height: 36px;
-  background: #fff;
-  color: #1a1a1a;
-  border-radius: 50%;
+  flex-shrink: 0;
   margin-left: auto;
+  transition: transform 0.15s;
 }
 
-.spotify-player__progress {
-  flex: 1;
-  height: 4px;
-  background: rgba(255,255,255,0.2);
-  border-radius: 2px;
-  overflow: hidden;
-}
+.music-card__play:hover { transform: scale(1.05); }
 
-.spotify-player__progress-fill {
-  height: 100%;
+.music-card__play.is-playing {
   background: #fff;
-  border-radius: 2px;
-  width: 0%;
 }
 
-.spotify-player__time {
-  font-size: 0.75rem;
-  font-family: var(--mono);
-  color: rgba(255,255,255,0.55);
-  min-width: 2.5rem;
-  text-align: right;
+.music-embed {
+  margin-top: 0.75rem;
+  border-radius: 12px;
+  overflow: hidden;
+  display: none;
+}
+
+.music-embed.is-open {
+  display: block;
+}
+
+.music-embed iframe {
+  display: block;
+  width: 100%;
+  height: 152px;
+  border: 0;
 }
 
 .section__meta {
@@ -828,12 +854,12 @@ body {
   .mobile-nav { display: block; }
   .main { padding: 1.5rem 1.25rem 5rem; }
   .main__inner { max-width: 100%; }
-  .spotify-player { max-width: 100%; }
+  .music-widget { max-width: 100%; }
   body { padding-bottom: 52px; }
 }
 
 @media (max-width: 640px) {
-  .spotify-player__top { grid-template-columns: 88px 1fr; }
-  .spotify-player__art { width: 88px; height: 88px; }
+  .music-card__top { grid-template-columns: 96px 1fr; gap: 0.85rem; }
+  .music-card__art { width: 96px; height: 96px; }
   .exp-item__when { display: block; margin-top: 0.15rem; }
 }

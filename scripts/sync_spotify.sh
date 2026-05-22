@@ -29,4 +29,4 @@ if [[ -z "${SPOTIFY_REFRESH_TOKEN:-}" ]]; then
   exit 1
 fi
 
-python3 "$ROOT/scripts/update_spotify.py"
+python3 "$ROOT/scripts/update_music.py"
