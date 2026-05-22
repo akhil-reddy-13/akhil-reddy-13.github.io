@@ -49,12 +49,13 @@ function parseSpotifyUrl(url) {
 }
 
 function spotifyEmbedUrl(kind, id) {
-  return `https://open.spotify.com/embed/${kind}/${id}?utm_source=generator`;
+  return `https://open.spotify.com/embed/${kind}/${id}?utm_source=generator&theme=0`;
 }
 
 function embedHeight(kind) {
-  if (kind === 'playlist') return 380;
-  if (kind === 'album') return 352;
+  const narrow = window.matchMedia('(max-width: 640px)').matches;
+  if (kind === 'playlist') return narrow ? 300 : 380;
+  if (kind === 'album') return narrow ? 300 : 352;
   return 152;
 }
 
@@ -88,25 +89,23 @@ function renderMusic(cfg, data) {
 async function loadMusic() {
   const root = document.getElementById('music-widget');
   let cfg = {};
-  let data = {};
   try {
     cfg = await (await fetch('data/music.config.json')).json();
   } catch {
-    /* config optional */
-  }
-  try {
-    data = await (await fetch('data/music.json')).json();
-  } catch {
-    /* json optional when config has spotify_url */
-  }
-  if (!cfg.spotify_url && !data.embed_url && !data.url) {
     if (root) {
       root.innerHTML =
         '<p class="music-empty">Could not load music. Check <code>data/music.config.json</code>.</p>';
     }
     return;
   }
-  renderMusic(cfg, data);
+  if (!cfg.spotify_url) {
+    if (root) {
+      root.innerHTML =
+        '<p class="music-empty">Add a Spotify playlist, album, or track URL in <code>data/music.config.json</code>.</p>';
+    }
+    return;
+  }
+  renderMusic(cfg, {});
 }
 
 function googleMapsUrl(cafe) {

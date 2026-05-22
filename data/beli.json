@@ -1,7 +1,0 @@
-{
-  "updated": "2026-05-21",
-  "profile": "https://beliapp.co",
-  "spots": [
-    { "name": "Add your top Beli spot", "city": "Stanford, CA", "score": 9.0, "note": "Edit data/beli.json — Beli has no public API yet" }
-  ]
-}
