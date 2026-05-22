@@ -35,5 +35,5 @@ for key in SPOTIFY_CLIENT_ID SPOTIFY_CLIENT_SECRET SPOTIFY_REFRESH_TOKEN SPOTIFY
 done
 
 echo "Done. Triggering workflow..."
-gh workflow run "Update Spotify" --repo "$(gh repo view --json nameWithOwner -q .nameWithOwner)"
+gh workflow run "Update Music" --repo "$(gh repo view --json nameWithOwner -q .nameWithOwner)" 2>/dev/null || gh workflow run spotify.yml --repo "$(gh repo view --json nameWithOwner -q .nameWithOwner)"
 echo "Secrets configured and sync started."
