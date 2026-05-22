@@ -1,5 +1,5 @@
 /* Navigation */
-const sections = document.querySelectorAll('.section, .intro');
+const sections = document.querySelectorAll('.section, .intro, .side-rail');
 const navLinks = document.querySelectorAll('[data-nav]');
 
 const sectionObserver = new IntersectionObserver(
@@ -43,136 +43,246 @@ function escapeHtml(str) {
   return d.innerHTML;
 }
 
-const SPOTIFY_ICON = `<svg class="music-card__brand" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>`;
+function parseSpotifyUrl(url) {
+  const m = String(url || '').match(/spotify\.com\/(playlist|album|track)\/([A-Za-z0-9]+)/);
+  return m ? { kind: m[1], id: m[2] } : null;
+}
 
-const PLAY_SVG = '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
-const PAUSE_SVG = '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6zm8 0h4v16h-4z"/></svg>';
+function spotifyEmbedUrl(kind, id) {
+  return `https://open.spotify.com/embed/${kind}/${id}?utm_source=generator`;
+}
 
-function renderMusic(data) {
+function embedHeight(kind) {
+  if (kind === 'playlist') return 380;
+  if (kind === 'album') return 352;
+  return 152;
+}
+
+function renderMusic(cfg, data) {
   const root = document.getElementById('music-widget');
-  const meta = document.getElementById('music-meta');
   if (!root) return;
 
-  const profile = data.profile || 'https://open.spotify.com/user/lkuv124pttnovhci7n5od7cj9';
+  const spotifyUrl = cfg.spotify_url || data.url || '';
+  const parsed = parseSpotifyUrl(spotifyUrl);
+  const embedUrl = data.embed_url || (parsed ? spotifyEmbedUrl(parsed.kind, parsed.id) : '');
+  const title = cfg.title || data.title || 'Music';
 
-  if (meta) {
-    const link = data.url
-      ? `<a href="${escapeHtml(data.url)}" target="_blank" rel="noopener">${escapeHtml(data.title || 'Spotify')}</a>`
-      : `<a href="${escapeHtml(profile)}" target="_blank" rel="noopener">@Akhil on Spotify</a>`;
-    meta.innerHTML = link;
-  }
-
-  const tracks = (data.tracks || []).slice(0, 4);
-  if (!tracks.length) {
-    root.innerHTML = '<div class="music-card music-card--empty">Run ./scripts/sync_spotify.sh after editing data/music.config.json</div>';
+  if (!embedUrl) {
+    root.innerHTML =
+      '<p class="music-empty">Paste a Spotify playlist, album, or track URL in <code>data/music.config.json</code>.</p>';
     return;
   }
 
-  const art = data.image || tracks[0]?.image || '';
-  const label = `${data.title || 'Music'}${data.subtitle ? ` · ${data.subtitle}` : ''}`;
-  const embedUrl = data.embed_url || '';
-
-  const trackRows = tracks
-    .map((t, i) => {
-      const on = i === 0 ? ' music-card__track--on' : '';
-      const e = t.explicit ? '<span class="music-card__e">E</span>' : '';
-      const href = t.url ? ` href="${escapeHtml(t.url)}" target="_blank" rel="noopener"` : '';
-      return `<a class="music-card__track${on}"${href}>
-        <span class="music-card__track-n">${t.number ?? i + 1}</span>
-        <span class="music-card__track-t">${e}${escapeHtml(t.name)} · ${escapeHtml(t.artist)}</span>
-      </a>`;
-    })
-    .join('');
-
-  root.innerHTML = `
-    <div class="music-card">
-      <div class="music-card__top">
-        <div class="music-card__art-wrap">
-          ${art ? `<img class="music-card__art" src="${escapeHtml(art)}" alt="" loading="lazy" />` : '<div class="music-card__art"></div>'}
-          <a href="${escapeHtml(profile)}" target="_blank" rel="noopener" aria-label="Spotify">${SPOTIFY_ICON}</a>
-        </div>
-        <div class="music-card__tracks">${trackRows}</div>
-      </div>
-      <div class="music-card__foot">
-        <div class="music-card__label">${escapeHtml(label)}</div>
-        <div class="music-card__controls">
-          <button class="music-card__icon-btn" type="button" aria-label="Previous" disabled>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
-          </button>
-          <div class="music-card__bar" aria-hidden="true"><div class="music-card__bar-fill"></div></div>
-          <span class="music-card__time">0:00</span>
-          <button class="music-card__icon-btn" type="button" aria-label="Next" disabled>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zm2-12h2v12H8V6zm5 0h2v12h-2V6z"/></svg>
-          </button>
-          <a class="music-card__icon-btn" href="${escapeHtml(data.url || profile)}" target="_blank" rel="noopener" aria-label="Open in Spotify">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-          </a>
-          <button class="music-card__play" type="button" aria-label="Play" data-embed="${escapeHtml(embedUrl)}">${PLAY_SVG}</button>
-        </div>
-      </div>
-    </div>
-    <div class="music-embed" id="music-embed"></div>
-  `;
-
-  const playBtn = root.querySelector('.music-card__play');
-  const embedBox = document.getElementById('music-embed');
-  playBtn?.addEventListener('click', () => {
-    if (!embedUrl || !embedBox) return;
-    const open = embedBox.classList.toggle('is-open');
-    if (open && !embedBox.querySelector('iframe')) {
-      embedBox.innerHTML = `<iframe src="${escapeHtml(embedUrl)}" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>`;
-    }
-    playBtn.classList.toggle('is-playing', open);
-    playBtn.innerHTML = open ? PAUSE_SVG : PLAY_SVG;
-    playBtn.setAttribute('aria-label', open ? 'Hide player' : 'Play');
-  });
+  const height = embedHeight(parsed?.kind || 'track');
+  root.innerHTML = `<div class="spotify-embed">
+    <iframe
+      src="${escapeHtml(embedUrl)}"
+      title="${escapeHtml(title)} on Spotify"
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy"
+      style="height:${height}px"
+    ></iframe>
+  </div>`;
 }
 
 async function loadMusic() {
+  const root = document.getElementById('music-widget');
+  let cfg = {};
+  let data = {};
   try {
-    const res = await fetch('data/music.json');
-    renderMusic(await res.json());
+    cfg = await (await fetch('data/music.config.json')).json();
   } catch {
-    const root = document.getElementById('music-widget');
-    if (root) root.innerHTML = '<div class="music-card music-card--empty">Could not load music.</div>';
+    /* config optional */
+  }
+  try {
+    data = await (await fetch('data/music.json')).json();
+  } catch {
+    /* json optional when config has spotify_url */
+  }
+  if (!cfg.spotify_url && !data.embed_url && !data.url) {
+    if (root) {
+      root.innerHTML =
+        '<p class="music-empty">Could not load music. Check <code>data/music.config.json</code>.</p>';
+    }
+    return;
+  }
+  renderMusic(cfg, data);
+}
+
+function googleMapsUrl(cafe) {
+  if (cafe.google_maps) return cafe.google_maps;
+  const q = encodeURIComponent(`${cafe.name} ${cafe.address || ''}`);
+  return `https://www.google.com/maps/search/?api=1&query=${q}`;
+}
+
+function formatAddress(address) {
+  if (!address) return '';
+  return address.replace(/, CA \d{5}$/, '').trim();
+}
+
+function initCafeMap(cafes, onSelect) {
+  const mapEl = document.getElementById('cafe-map');
+  if (!mapEl || typeof L === 'undefined') return null;
+
+  if (mapEl._leafletMap) {
+    mapEl._leafletMap.remove();
+    mapEl._leafletMap = null;
+  }
+
+  const map = L.map(mapEl, {
+    zoomControl: false,
+    attributionControl: true,
+    scrollWheelZoom: false,
+    touchZoom: true,
+    dragging: true,
+    doubleClickZoom: true,
+    boxZoom: true,
+  });
+  mapEl._leafletMap = map;
+
+  L.control.zoom({ position: 'topright' }).addTo(map);
+
+  map.scrollWheelZoom.disable();
+  mapEl.addEventListener('mouseenter', () => map.scrollWheelZoom.enable());
+  mapEl.addEventListener('mouseleave', () => map.scrollWheelZoom.disable());
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
+    attribution: '&copy; OSM &copy; CARTO',
+    subdomains: 'abcd',
+    maxZoom: 20,
+  }).addTo(map);
+
+  const bounds = L.latLngBounds(cafes.map((c) => [c.lat, c.lng]));
+  const markers = {};
+
+  cafes.forEach((cafe) => {
+    const marker = L.circleMarker([cafe.lat, cafe.lng], {
+      radius: 7,
+      color: '#1ed760',
+      weight: 2,
+      fillColor: '#1ed760',
+      fillOpacity: 0.35,
+    }).addTo(map);
+
+    marker.on('click', (e) => {
+      L.DomEvent.stopPropagation(e);
+      onSelect(cafe.id, { pan: true });
+    });
+
+    markers[cafe.id] = marker;
+  });
+
+  function refreshMap() {
+    map.invalidateSize(true);
+    if (!map._userPanned) map.fitBounds(bounds.pad(0.15));
+  }
+
+  refreshMap();
+  requestAnimationFrame(refreshMap);
+  setTimeout(refreshMap, 100);
+  setTimeout(refreshMap, 400);
+
+  if (typeof ResizeObserver !== 'undefined') {
+    const ro = new ResizeObserver(() => refreshMap());
+    ro.observe(mapEl.parentElement || mapEl);
+  }
+
+  map.on('dragstart zoomend', () => {
+    map._userPanned = true;
+  });
+
+  return { map, markers, refreshMap };
+}
+
+function setActiveCafe(id, markers) {
+  document.querySelectorAll('.cafe-item').forEach((el) => {
+    el.classList.toggle('cafe-item--active', el.dataset.id === id);
+  });
+  if (markers) {
+    Object.entries(markers).forEach(([mid, marker]) => {
+      const on = mid === id;
+      marker.setStyle({
+        radius: on ? 9 : 7,
+        fillOpacity: on ? 0.85 : 0.35,
+        weight: on ? 3 : 2,
+      });
+      if (on) marker.bringToFront();
+    });
   }
 }
 
-async function loadBeli() {
-  const list = document.getElementById('beli-list');
-  const meta = document.getElementById('beli-meta');
-  if (!list) return;
+async function loadCafes() {
+  const root = document.getElementById('cafes');
+  if (!root) return;
 
   try {
-    const res = await fetch('data/beli.json');
-    const data = await res.json();
+    const data = await (await fetch('data/cafes.json')).json();
+    const cafes = (data.cafes || []).slice().sort((a, b) => (b.score || 0) - (a.score || 0));
 
-    if (meta && data.profile) {
-      meta.innerHTML = `<a href="${escapeHtml(data.profile)}" target="_blank" rel="noopener">Beli</a>`;
-      if (data.updated) meta.innerHTML += ` · ${escapeHtml(data.updated)}`;
-    }
-
-    if (!data.spots?.length) {
-      list.innerHTML = '<p class="empty-state">Add your top spots in data/beli.json</p>';
+    if (!cafes.length) {
+      root.innerHTML = '<p class="cafe-empty">Add cafes in <code>data/cafes.json</code></p>';
       return;
     }
 
-    list.innerHTML = data.spots
-      .map(
-        (s) => `<div class="beli-row">
-          <div>
-            <div class="beli-row__name">${escapeHtml(s.name)}</div>
-            ${s.city ? `<div class="beli-row__city">${escapeHtml(s.city)}</div>` : ''}
-            ${s.note ? `<div class="beli-row__note">${escapeHtml(s.note)}</div>` : ''}
-          </div>
-          <div class="beli-row__score">${s.score != null ? s.score.toFixed(1) : '—'}</div>
-        </div>`
-      )
+    const listHtml = cafes
+      .map((c) => {
+        const emoji = c.emoji ? ` ${c.emoji}` : '';
+        const addr = formatAddress(c.address);
+        return `<button type="button" class="cafe-item" data-id="${escapeHtml(c.id)}">
+          <span class="cafe-item__score">${c.score != null ? c.score.toFixed(1) : '—'}</span>
+          <span class="cafe-item__body">
+            <span class="cafe-item__name">${escapeHtml(c.name)}${emoji}</span>
+            ${c.note ? `<span class="cafe-item__note">${escapeHtml(c.note)}</span>` : ''}
+            ${addr ? `<span class="cafe-item__addr">${escapeHtml(addr)}</span>` : ''}
+          </span>
+        </button>`;
+      })
       .join('');
+
+    root.innerHTML = `
+      <header class="cafe-widget__head">
+        <span class="cafe-widget__icon" aria-hidden="true">☕</span>
+        <span class="cafe-widget__title">Favorite Cafes</span>
+      </header>
+      <div class="cafe-widget__panel">
+        <div class="cafe-widget__list" role="list">${listHtml}</div>
+        <div class="cafe-widget__map-wrap">
+          <div id="cafe-map" class="cafe-widget__map" role="application" aria-label="Map of rated cafes near Stanford"></div>
+        </div>
+      </div>
+    `;
+
+    const select = (id, opts = {}) => {
+      const cafe = cafes.find((c) => c.id === id);
+      if (!cafe) return;
+
+      setActiveCafe(id, mapState?.markers);
+      if (!mapState?.map) return;
+
+      if (opts.pan) {
+        mapState.map.panTo([cafe.lat, cafe.lng], { animate: true, duration: 0.35 });
+      } else {
+        const z = Math.max(mapState.map.getZoom(), 14);
+        mapState.map.flyTo([cafe.lat, cafe.lng], z, { duration: 0.5 });
+      }
+    };
+
+    let mapState = null;
+    const bootMap = () => {
+      mapState = initCafeMap(cafes, select);
+      if (mapState) select(cafes[0].id);
+    };
+
+    requestAnimationFrame(() => requestAnimationFrame(bootMap));
+    window.addEventListener('load', () => mapState?.refreshMap?.());
+
+    root.querySelectorAll('.cafe-item').forEach((btn) => {
+      btn.addEventListener('click', () => select(btn.dataset.id));
+    });
   } catch {
-    list.innerHTML = '<p class="empty-state">Could not load Beli data.</p>';
+    root.innerHTML = '<p class="cafe-empty">Could not load cafes.</p>';
   }
 }
 
 loadMusic();
-loadBeli();
+loadCafes();

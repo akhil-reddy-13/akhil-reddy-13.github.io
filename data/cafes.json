@@ -1,0 +1,83 @@
+{
+  "updated": "2026-05-22",
+  "region": "Palo Alto & Mountain View, CA",
+  "cafes": [
+    {
+      "id": "maruwu",
+      "name": "MARUWU SEICHA",
+      "emoji": "🍵",
+      "score": 10.0,
+      "note": "Matcha Latte (Hokkaido)",
+      "tags": ["Tea", "Matcha"],
+      "address": "418 University Ave, Palo Alto, CA 94301",
+      "lat": 37.4472,
+      "lng": -122.1605
+    },
+    {
+      "id": "molly-tea",
+      "name": "Molly Tea",
+      "emoji": "🍵",
+      "score": 9.6,
+      "note": "Jasmine Matcha",
+      "tags": ["Bubble Tea"],
+      "address": "180 University Ave, Palo Alto, CA 94301",
+      "lat": 37.444,
+      "lng": -122.1615
+    },
+    {
+      "id": "yummy-future",
+      "name": "Yummy Future",
+      "emoji": "🤖",
+      "score": 9.3,
+      "note": "Black Sesame Matcha",
+      "tags": ["Cafe"],
+      "address": "240 University Ave, Palo Alto, CA 94301",
+      "lat": 37.4452,
+      "lng": -122.1582
+    },
+    {
+      "id": "blue-bottle",
+      "name": "Blue Bottle Coffee",
+      "emoji": "☕",
+      "score": 9.1,
+      "note": "Iced Nola",
+      "tags": ["Coffee Shop"],
+      "address": "456 University Ave, Palo Alto, CA 94301",
+      "lat": 37.4467,
+      "lng": -122.1592
+    },
+    {
+      "id": "goodthing",
+      "name": "Goodthing Coffee",
+      "emoji": "☕",
+      "score": 8.5,
+      "note": "Pistachio Einspanner",
+      "tags": ["Coffee Shop"],
+      "address": "411 High St, Palo Alto, CA 94301",
+      "lat": 37.4445,
+      "lng": -122.161
+    },
+    {
+      "id": "boba-bliss",
+      "name": "Boba Bliss",
+      "emoji": "🧋",
+      "score": 8.2,
+      "note": "Vietnamese Coffee",
+      "tags": ["Bubble Tea"],
+      "address": "1040 Grant Rd, Mountain View, CA 94040",
+      "lat": 37.378,
+      "lng": -122.074
+    },
+    {
+      "id": "verve",
+      "name": "Verve Coffee Roasters",
+      "emoji": "☕",
+      "score": 7.6,
+      "note": "Americano",
+      "tags": ["Coffee Shop"],
+      "address": "162 University Ave, Palo Alto, CA 94301",
+      "lat": 37.4419,
+      "lng": -122.143
+    }
+  ]
+}

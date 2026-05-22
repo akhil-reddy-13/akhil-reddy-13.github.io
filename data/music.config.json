@@ -1,6 +1,6 @@
 {
-  "source": "top_tracks",
-  "title": "All-time favorites",
-  "subtitle": "From my Spotify",
-  "spotify_url": ""
+  "source": "playlist",
+  "spotify_url": "https://open.spotify.com/playlist/5UNifTyyQlgvwStuxTFwgD",
+  "title": "Drake Road Trips",
+  "subtitle": "On repeat"
 }

@@ -37,6 +37,8 @@ Use `"source": "album"` or `"source": "track"` with the matching URL.
 
 Uses the same secrets as before (`SPOTIFY_CLIENT_ID`, `SPOTIFY_CLIENT_SECRET`, `SPOTIFY_REFRESH_TOKEN`). Workflow **Update Music** runs weekly and updates `data/music.json`.
 
-## Play button
+## Player
 
-Click **play** on the card to open Spotify’s embed and listen in-page (playlist/album/track you configured).
+The Music section uses Spotify’s official embed (same as [LuaanNguyen/spotify-portfolio](https://github.com/LuaanNguyen/spotify-portfolio)): real playback, track list, and controls. No fake UI.
+
+To change what plays, paste any playlist/album/track **Share link** into `spotify_url` in `music.config.json`. The site reads that file directly; `sync_spotify.sh` is optional metadata only.

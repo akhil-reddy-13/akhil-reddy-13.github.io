@@ -6,6 +6,12 @@
   <meta name="description" content="Akhil Reddy — CS & Math at Stanford. Builder, consultant, and occasional poet." />
   <title>Akhil Reddy</title>
   <link rel="stylesheet" href="assets/css/style.css" />
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect fill='%231ed760' width='32' height='32' rx='6'/><text x='16' y='22' text-anchor='middle' fill='%230a0a0a' font-size='14' font-family='system-ui' font-weight='700'>A</text></svg>" />
 </head>
 <body>
@@ -17,9 +23,11 @@
   </div>
 
   <header class="mobile-header">
-    <a href="#" class="sidebar__brand">
-      <div class="avatar">AR</div>
-      <div>
+    <a href="#" class="sidebar__brand sidebar__brand--stacked">
+      <div class="avatar avatar--square">
+        <img src="images/profile.jpg" alt="Akhil Reddy" />
+      </div>
+      <div class="sidebar__identity">
         <div class="sidebar__name">Akhil Reddy</div>
         <div class="sidebar__tag">Stanford · CS + Math</div>
       </div>
@@ -32,10 +40,9 @@
       <a href="#home" class="mobile-nav__link active" data-nav>Home</a>
       <a href="#experience" class="mobile-nav__link" data-nav>Work</a>
       <a href="#projects" class="mobile-nav__link" data-nav>Projects</a>
-      <a href="#music" class="mobile-nav__link" data-nav>Music</a>
-      <a href="#beli" class="mobile-nav__link" data-nav>Beli</a>
+      <a href="#music" class="mobile-nav__link mobile-nav__link--rail" data-nav>Music</a>
+      <a href="#cafes" class="mobile-nav__link mobile-nav__link--rail" data-nav>Coffee</a>
       <a href="#writing" class="mobile-nav__link" data-nav>Writing</a>
-      <a href="#contact" class="mobile-nav__link" data-nav>Contact</a>
     </div>
   </nav>
 
@@ -43,13 +50,11 @@
 
     <!-- Sidebar -->
     <aside class="sidebar">
-      <a href="#home" class="sidebar__brand">
-        <div class="avatar" id="avatar">
-          <!-- Drop your new photo at images/pfp.jpg and uncomment: -->
-          <!-- <img src="images/pfp.jpg" alt="Akhil Reddy" /> -->
-          AR
+      <a href="#home" class="sidebar__brand sidebar__brand--stacked">
+        <div class="avatar avatar--square" id="avatar">
+          <img src="images/profile.jpg" alt="Akhil Reddy" />
         </div>
-        <div>
+        <div class="sidebar__identity">
           <div class="sidebar__name">Akhil Reddy</div>
           <div class="sidebar__tag">Stanford · CS + Math</div>
         </div>
@@ -73,21 +78,9 @@
           Education
         </a>
 
-        <a href="#music" class="nav__link" data-nav>
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/></svg>
-          Music
-        </a>
-        <a href="#beli" class="nav__link" data-nav>
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2h-5z"/></svg>
-          Beli
-        </a>
         <a href="#writing" class="nav__link" data-nav>
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
           Writing
-        </a>
-        <a href="#contact" class="nav__link" data-nav>
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-          Contact
         </a>
       </nav>
 
@@ -98,6 +91,9 @@
         <a href="https://linkedin.com/in/akhilreddy1312" class="social-btn" target="_blank" rel="noopener" aria-label="LinkedIn">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
         </a>
+        <a href="https://www.instagram.com/akhil.reddy.13/" class="social-btn" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+        </a>
         <a href="mailto:asreddy@stanford.edu" class="social-btn" aria-label="Email">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
         </a>
@@ -106,60 +102,106 @@
 
     <!-- Main -->
     <main class="main">
-      <div class="main__inner">
+      <div class="main__inner main__inner--split">
 
       <!-- Home -->
       <section class="intro" id="home">
-        <p>
-          I'm <strong>Akhil</strong>, studying CS and math at Stanford. I work on software and product — right now at <strong>LVL3.AI</strong> and through <strong>Stanford Management Group</strong> (Gemini, LinkedIn).
-        </p>
-        <p>
-          I also build crosswords for <a href="https://www.stanforddaily.com/" target="_blank" rel="noopener">The Stanford Daily</a>, lessons at the <strong>PinCS Lab</strong>, and side projects when I have time.
-        </p>
-        <p class="intro__now">
-          <span>Based in</span> Stanford, CA · from Overland Park, KS
-        </p>
+        <figure class="intro__moment">
+          <img src="images/lake-lag-sunset.jpg" alt="Sunset over Lake Lagunita at Stanford" width="960" height="540" loading="eager" />
+          <figcaption>Lake Lagunita sunset I captured recently.</figcaption>
+        </figure>
+        <div class="intro__copy">
+          <p>
+            I'm <strong>Akhil</strong>, a student at Stanford University studying CS + Math.
+          </p>
+          <p>
+            I love building at the intersection of software and product—currently developing as an intern at <strong>LVL3.AI</strong> and driving growth strategy for <strong>Google Gemini</strong> as a consultant.
+          </p>
+          <p>
+            Beyond tech, I construct cryptic crosswords for <a href="https://www.stanforddaily.com/" target="_blank" rel="noopener">The Stanford Daily</a>, design high school lessons at the <strong>PinCS Lab</strong>, and drink far too much coffee.
+          </p>
+          <p class="intro__now">
+            <span>Based in</span> Stanford, CA · From Overland Park, KS
+          </p>
+        </div>
       </section>
 
-      <section class="section" id="music">
-        <h2 class="section__title">Music</h2>
+      <aside class="side-rail" id="music" aria-label="Music and coffee">
         <div id="music-widget" class="music-widget"></div>
-        <p class="section__meta" id="music-meta"></p>
-      </section>
+        <div id="cafes" class="cafe-widget" aria-label="Favorite Cafes"></div>
+      </aside>
+
+      <div class="main__body">
 
       <!-- Experience -->
       <section class="section" id="experience">
         <h2 class="section__title">Experience</h2>
         <div class="exp-list">
 
-          <article class="exp-item">
-            <p class="exp-item__headline">Software Engineering &amp; Product Intern · LVL3.AI <span class="exp-item__when">May 2026 – Present</span></p>
-            <p class="exp-item__desc">Building a React/TypeScript natural language interface to orchestrate VM swarms and real-time dashboards for agent orchestration.</p>
+          <article class="exp-item entry-row">
+            <img class="entry-row__logo entry-row__logo--light" src="images/burns-mcdonnell.png" alt="" width="40" height="40" />
+            <div class="entry-row__body">
+              <p class="exp-item__headline">
+                <span class="exp-item__role">Incoming AI Innovation Intern · Burns &amp; McDonnell</span>
+                <span class="exp-item__when">Incoming Summer 2026</span>
+              </p>
+              <p class="exp-item__desc">Summer internship in Kansas City — innovation and engineering at one of the largest design-build firms in the U.S.</p>
+            </div>
           </article>
 
-          <article class="exp-item">
-            <p class="exp-item__headline">Product &amp; Growth Consultant · Google Gemini <span class="exp-item__when">Apr 2026 – Present</span></p>
-            <p class="exp-item__desc">Go-to-market strategy for Gemini on 100+ campuses via Stanford Management Group — personas, playbooks, and wireframes.</p>
+          <article class="exp-item entry-row">
+            <img class="entry-row__logo entry-row__logo--light" src="images/lvl3.png" alt="" width="40" height="40" />
+            <div class="entry-row__body">
+              <p class="exp-item__headline">
+                <span class="exp-item__role">Software Engineering &amp; Product Intern · LVL3.AI</span>
+                <span class="exp-item__when">May 2026 – Present</span>
+              </p>
+              <p class="exp-item__desc">Building a React/TypeScript natural language interface to orchestrate VM swarms and real-time dashboards for agent orchestration.</p>
+            </div>
           </article>
 
-          <article class="exp-item">
-            <p class="exp-item__headline">Software &amp; Lesson Developer · PinCS Lab, Stanford <span class="exp-item__when">Oct 2025 – Present</span></p>
-            <p class="exp-item__desc">Developed 10+ TypeScript interactive lessons for high school CS curricula; leading pilots for 300+ students.</p>
+          <article class="exp-item entry-row">
+            <img class="entry-row__logo entry-row__logo--light" src="images/gemini.png" alt="" width="40" height="40" />
+            <div class="entry-row__body">
+              <p class="exp-item__headline">
+                <span class="exp-item__role">Product &amp; Growth Consultant · Google Gemini</span>
+                <span class="exp-item__when">Apr 2026 – Present</span>
+              </p>
+              <p class="exp-item__desc">Go-to-market strategy for Gemini on 100+ campuses via Stanford Management Group — personas, playbooks, and wireframes.</p>
+            </div>
           </article>
 
-          <article class="exp-item">
-            <p class="exp-item__headline">UX Consultant · LinkedIn <span class="exp-item__when">Jan – Mar 2026</span></p>
-            <p class="exp-item__desc">Architected viral feedback loops and retention hooks for daily games; delivered 50+ product specs from funnel analysis.</p>
+          <article class="exp-item entry-row">
+            <img class="entry-row__logo entry-row__logo--light" src="images/pincs.png" alt="" width="40" height="40" />
+            <div class="entry-row__body">
+              <p class="exp-item__headline">
+                <span class="exp-item__role">Software &amp; Lesson Developer · PinCS Lab, Stanford</span>
+                <span class="exp-item__when">Oct 2025 – Present</span>
+              </p>
+              <p class="exp-item__desc">Developed 10+ TypeScript interactive lessons for high school CS curricula; leading pilots for 300+ students.</p>
+            </div>
           </article>
 
-          <article class="exp-item">
-            <p class="exp-item__headline">Consultant · Stanford Management Group <span class="exp-item__when">Dec 2025 – Present</span></p>
-            <p class="exp-item__desc">Product, growth, and UX consulting for Gemini, LinkedIn, and other clients.</p>
+          <article class="exp-item entry-row">
+            <img class="entry-row__logo entry-row__logo--light" src="images/linkedin.png" alt="" width="40" height="40" />
+            <div class="entry-row__body">
+              <p class="exp-item__headline">
+                <span class="exp-item__role">UX Consultant · LinkedIn</span>
+                <span class="exp-item__when">Jan – Mar 2026</span>
+              </p>
+              <p class="exp-item__desc">Architected viral feedback loops and retention hooks for daily games; delivered 50+ product specs from funnel analysis.</p>
+            </div>
           </article>
 
-          <article class="exp-item">
-            <p class="exp-item__headline">Marketing &amp; Project Intern · Pipeline Entrepreneurs <span class="exp-item__when">Jul – Aug 2025</span></p>
-            <p class="exp-item__desc">Designed 40+ spotlights and graphics; managed outreach to 1.5K+ contacts and converted 20+ fellowship applicants.</p>
+          <article class="exp-item entry-row">
+            <img class="entry-row__logo" src="images/pipeline.png" alt="" width="40" height="40" />
+            <div class="entry-row__body">
+              <p class="exp-item__headline">
+                <span class="exp-item__role">Marketing &amp; Project Intern · Pipeline Entrepreneurs</span>
+                <span class="exp-item__when">Jul – Aug 2025</span>
+              </p>
+              <p class="exp-item__desc">Designed 40+ spotlights and graphics; managed outreach to 1.5K+ contacts and converted 20+ fellowship applicants.</p>
+            </div>
           </article>
 
         </div>
@@ -170,86 +212,58 @@
         <h2 class="section__title">Projects</h2>
         <div class="project-list">
           <article class="project-entry">
-            <div class="project-entry__title"><a href="https://github.com/akhil-reddy-13" target="_blank" rel="noopener">Custom Crossclimb</a></div>
-            <div class="project-entry__desc">Word ladder puzzles from a 100K+ dictionary using BFS. React frontend, custom validation pipeline.</div>
-            <div class="project-entry__meta">React · TypeScript</div>
+            <div class="project-entry__title">Musona</div>
+            <div class="project-entry__desc">Live desktop ambiance for music — while you listen on Spotify (or YouTube), Musona shifts your Mac wallpaper into colors pulled from the track, artist, and album art, with LED-style light accents that move across the screen. Updates within two seconds of each new song.</div>
+            <div class="project-entry__meta">macOS · Python · Spotify &amp; YouTube</div>
           </article>
           <article class="project-entry">
-            <div class="project-entry__title"><a href="https://github.com/akhil-reddy-13" target="_blank" rel="noopener">Sprout</a></div>
-            <div class="project-entry__desc">macOS workspace launcher with fuzzy search and Spotify deep-link parsing.</div>
-            <div class="project-entry__meta">Python · CustomTkinter</div>
+            <div class="project-entry__title"><a href="https://github.com/akhil-reddy-13/Crossclimb" target="_blank" rel="noopener">Custom Crossclimb</a></div>
+            <div class="project-entry__desc">A custom LinkedIn Crossclimb–style word ladder game: auto-generate puzzles from start/end words via BFS over a 100K+ dictionary, or build clues manually. Drag-and-drop reordering, live validation, timers, and shareable results.</div>
+            <div class="project-entry__meta">React · TypeScript · Next.js</div>
+          </article>
+          <article class="project-entry">
+            <div class="project-entry__title"><a href="https://github.com/akhil-reddy-13/Sprout" target="_blank" rel="noopener">Sprout</a></div>
+            <div class="project-entry__desc">macOS workspace launcher — fuzzy-match app names, open saved workspaces in one click, and parse natural-language commands (including Spotify playlist/album/track deep links). Packaged as a native .app with CustomTkinter.</div>
+            <div class="project-entry__meta">Python · CustomTkinter · macOS</div>
+          </article>
+          <article class="project-entry">
+            <div class="project-entry__title"><a href="https://github.com/akhil-reddy-13/letterboxed" target="_blank" rel="noopener">Daily Letterboxed</a></div>
+            <div class="project-entry__desc">NYT-style letter boxing puzzle — find words that chain across a letter grid. Practice project for grid logic and word validation.</div>
+            <div class="project-entry__meta">JavaScript</div>
           </article>
         </div>
-      </section>
-
-      <section class="section" id="beli">
-        <h2 class="section__title">Beli</h2>
-        <p class="section__meta" id="beli-meta">Places I've rated</p>
-        <div class="beli-list" id="beli-list"></div>
       </section>
 
       <!-- Education -->
       <section class="section" id="education">
         <h2 class="section__title">Education</h2>
-        <div class="edu-card">
-          <img class="edu-card__logo" src="https://www.google.com/s2/favicons?domain=stanford.edu&amp;sz=128" alt="" width="44" height="44" />
-          <div>
-            <div class="edu-card__school">Stanford University</div>
-            <div class="edu-card__degree">B.S. Computer Science &amp; Mathematics · Expected June 2028</div>
-            <div class="edu-card__detail">
-              Activities: Stanford Management Group, PinCS Lab, The Stanford Daily (Crosswords).<br />
-              Coursework: Data Structures, Computer Systems, Optimization &amp; ML, Discrete Math, Linear Algebra, Multivariable Calc, Differential Equations, C++.
+        <div class="exp-list">
+          <article class="entry-row">
+            <img class="entry-row__logo entry-row__logo--light" src="images/stanford.png" alt="" width="40" height="40" />
+            <div class="entry-row__body">
+              <p class="exp-item__headline">
+                <span class="exp-item__role">Stanford University</span>
+                <span class="exp-item__when">Expected June 2028</span>
+              </p>
+              <p class="entry-row__sub">B.S. Computer Science &amp; Mathematics</p>
+              <p class="exp-item__desc">
+                Coursework: Data Structures, Computer Systems, Optimization &amp; ML, Discrete Math, Linear Algebra, Multivariable Calc, Differential Equations, C++.
+              </p>
             </div>
-          </div>
+          </article>
         </div>
-        <div class="edu-card">
-          <img class="edu-card__logo" src="https://www.google.com/s2/favicons?domain=bluevalleyk12.org&amp;sz=128" alt="" width="44" height="44" />
-          <div>
-            <div class="edu-card__school">Blue Valley High School</div>
-            <div class="edu-card__degree">Overland Park, KS · Class of 2025</div>
-            <div class="edu-card__detail">
-              GPA 4.82 · ACT 36 · KS Governor's Scholar · Speech &amp; Debate VP · Mu Alpha Theta VP
-            </div>
-          </div>
-        </div>
-
-        <h3 style="font-size:1.1rem;font-weight:700;margin:2.5rem 0 1rem;">Honors &amp; awards</h3>
-        <ul class="awards-list">
-          <li>Top 4, International Public Policy Forum <span class="awards-list__year">2025</span></li>
-          <li>1st Place, Eloquence Speech Competition <span class="awards-list__year">2024</span></li>
-          <li>Wes Fry Speech Contest Champion <span class="awards-list__year">2022 &amp; 2024</span></li>
-          <li>Top 60, NSDA International Extemp <span class="awards-list__year">2024</span></li>
-          <li>Premier Distinction, National Speech &amp; Debate Association</li>
-          <li>KS Governor's Scholar Award</li>
-        </ul>
       </section>
 
-      <!-- Writing / journal -->
+      <!-- Writing -->
       <section class="section" id="writing">
         <h2 class="section__title">Writing</h2>
-        <p class="section__desc" style="margin-bottom:0;">Journal entries and poetry — coming soon.</p>
-      </section>
-
-      <!-- Contact -->
-      <section class="section" id="contact">
-        <h2 class="section__title">Contact</h2>
-        <div class="contact-grid">
-          <a href="mailto:asreddy@stanford.edu" class="contact-item">
-            <div class="contact-item__label">Email</div>
-            <div class="contact-item__value">asreddy@stanford.edu</div>
-          </a>
-          <a href="https://linkedin.com/in/akhilreddy1312" class="contact-item" target="_blank" rel="noopener">
-            <div class="contact-item__label">LinkedIn</div>
-            <div class="contact-item__value">/in/akhilreddy1312</div>
-          </a>
-          <a href="https://github.com/akhil-reddy-13" class="contact-item" target="_blank" rel="noopener">
-            <div class="contact-item__label">GitHub</div>
-            <div class="contact-item__value">@akhil-reddy-13</div>
-          </a>
-          <div class="contact-item">
-            <div class="contact-item__label">Location</div>
-            <div class="contact-item__value">Stanford, CA · from Overland Park, KS</div>
-          </div>
+        <div class="writing-list">
+          <article class="writing-entry">
+            <a class="writing-entry__title" href="https://stanforddaily.com/2026/04/23/daily-crossword-022/" target="_blank" rel="noopener">Daily Crossword #022</a>
+            <p class="writing-entry__meta">The Stanford Daily · Full-sized crossword · Apr 2026</p>
+            <p class="writing-entry__desc">Latest biweekly puzzle for The Daily’s games section — constructor for their NYT-style full grid.</p>
+          </article>
+          <p class="writing-entry__soon">Journal entries and poetry — coming soon.</p>
         </div>
         <footer class="footer">
           <span>© <span id="year">2026</span> Akhil Reddy</span>
@@ -257,10 +271,16 @@
         </footer>
       </section>
 
-      </div>
+      </div><!-- .main__body -->
+      </div><!-- .main__inner -->
     </main>
   </div>
 
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
   <script src="assets/js/main.js"></script>
 </body>
 </html>

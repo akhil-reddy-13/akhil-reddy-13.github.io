@@ -141,51 +141,83 @@ def fetch_top_tracks(token, limit=4):
     }
 
 
+def payload_from_config(cfg):
+    """Minimal music.json from config only (no API). Works for any public embed URL."""
+    url = cfg.get("spotify_url", "")
+    kind, sid = parse_spotify_url(url)
+    if not kind or not sid:
+        return None
+    return {
+        "kind": kind,
+        "title": cfg.get("title") or "Music",
+        "subtitle": cfg.get("subtitle") or "",
+        "url": url,
+        "embed_url": embed_url(kind, sid),
+        "tracks": [],
+    }
+
+
 def main():
     cfg = load_json(CONFIG)
     cid = os.environ.get("SPOTIFY_CLIENT_ID")
     secret = os.environ.get("SPOTIFY_CLIENT_SECRET")
     rt = os.environ.get("SPOTIFY_REFRESH_TOKEN")
 
-    if not all([cid, secret, rt]):
-        print("Missing Spotify env vars", file=sys.stderr)
-        sys.exit(1)
-
-    token = refresh_token(cid, secret, rt)
     source = cfg.get("source", "playlist")
     url = cfg.get("spotify_url", "")
+    payload = payload_from_config(cfg)
 
-    if source == "top_tracks":
-        payload = fetch_top_tracks(token)
-        payload["title"] = cfg.get("title") or payload["title"]
-        payload["subtitle"] = cfg.get("subtitle") or payload["subtitle"]
-    else:
-        kind, sid = parse_spotify_url(url)
-        if not kind or not sid:
-            print("Invalid spotify_url in music.config.json", file=sys.stderr)
-            sys.exit(1)
-        if kind == "playlist":
-            payload = fetch_playlist(token, sid)
-        elif kind == "album":
-            payload = fetch_album(token, sid)
+    if not all([cid, secret, rt]):
+        if payload:
+            print("No Spotify credentials — writing embed-only music.json from config", file=sys.stderr)
         else:
-            t = get(f"{API}/tracks/{sid}", token)
-            tr = track_row(t, 1)
-            album = t.get("album") or {}
-            images = album.get("images") or []
-            payload = {
-                "kind": "track",
-                "title": t.get("name"),
-                "subtitle": tr["artist"],
-                "image": images[0]["url"] if images else None,
-                "url": t.get("external_urls", {}).get("spotify"),
-                "embed_url": embed_url("track", sid),
-                "tracks": [tr],
-            }
-        if cfg.get("title"):
-            payload["title"] = cfg["title"]
-        if cfg.get("subtitle"):
-            payload["subtitle"] = cfg["subtitle"]
+            print("Missing Spotify env vars", file=sys.stderr)
+            sys.exit(1)
+    else:
+        token = refresh_token(cid, secret, rt)
+        try:
+            if source == "top_tracks":
+                payload = fetch_top_tracks(token)
+                payload["title"] = cfg.get("title") or payload["title"]
+                payload["subtitle"] = cfg.get("subtitle") or payload["subtitle"]
+            else:
+                kind, sid = parse_spotify_url(url)
+                if not kind or not sid:
+                    print("Invalid spotify_url in music.config.json", file=sys.stderr)
+                    sys.exit(1)
+                if kind == "playlist":
+                    payload = fetch_playlist(token, sid)
+                elif kind == "album":
+                    payload = fetch_album(token, sid)
+                else:
+                    t = get(f"{API}/tracks/{sid}", token)
+                    tr = track_row(t, 1)
+                    album = t.get("album") or {}
+                    images = album.get("images") or []
+                    payload = {
+                        "kind": "track",
+                        "title": t.get("name"),
+                        "subtitle": tr["artist"],
+                        "image": images[0]["url"] if images else None,
+                        "url": t.get("external_urls", {}).get("spotify"),
+                        "embed_url": embed_url("track", sid),
+                        "tracks": [tr],
+                    }
+                if cfg.get("title"):
+                    payload["title"] = cfg["title"]
+                if cfg.get("subtitle"):
+                    payload["subtitle"] = cfg["subtitle"]
+        except Exception as exc:
+            fallback = payload_from_config(cfg)
+            if fallback:
+                print(f"Spotify API failed ({exc}) — using embed-only from config", file=sys.stderr)
+                payload = fallback
+            else:
+                raise
+
+    if not payload:
+        print("Invalid music.config.json (need spotify_url or top_tracks + credentials)", file=sys.stderr)
+        sys.exit(1)
 
     payload["updated"] = datetime.now(timezone.utc).isoformat()
     payload["profile"] = PROFILE
