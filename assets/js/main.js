@@ -1,23 +1,61 @@
-/* Navigation */
-const sections = document.querySelectorAll('.section, .intro, .side-rail');
+/* Navigation — scroll spy + instant highlight on click */
+const NAV_SECTION_IDS = ['home', 'experience', 'projects', 'education', 'writing'];
 const navLinks = document.querySelectorAll('[data-nav]');
 
-const sectionObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      const id = entry.target.id;
-      navLinks.forEach((link) => {
-        link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
-      });
+function getNavSections() {
+  return NAV_SECTION_IDS.map((id) => document.getElementById(id)).filter(Boolean);
+}
+
+function setActiveNav(id) {
+  navLinks.forEach((link) => {
+    link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+  });
+}
+
+function updateActiveNav() {
+  const sections = getNavSections();
+  if (!sections.length) return;
+
+  const scrollY = window.scrollY;
+  const marker = scrollY + Math.min(window.innerHeight * 0.28, 220);
+
+  let activeId = sections[0].id;
+
+  for (const el of sections) {
+    const top = el.getBoundingClientRect().top + scrollY;
+    if (top <= marker) activeId = el.id;
+  }
+
+  const doc = document.documentElement;
+  if (scrollY + window.innerHeight >= doc.scrollHeight - 64) {
+    activeId = sections[sections.length - 1].id;
+  }
+
+  setActiveNav(activeId);
+}
+
+let navScrollPending = false;
+window.addEventListener(
+  'scroll',
+  () => {
+    if (navScrollPending) return;
+    navScrollPending = true;
+    requestAnimationFrame(() => {
+      updateActiveNav();
+      navScrollPending = false;
     });
   },
-  { rootMargin: '-15% 0px -65% 0px', threshold: 0 }
+  { passive: true }
 );
 
-sections.forEach((s) => {
-  if (s.id) sectionObserver.observe(s);
+navLinks.forEach((link) => {
+  link.addEventListener('click', () => {
+    const href = link.getAttribute('href');
+    if (href?.startsWith('#')) setActiveNav(href.slice(1));
+  });
 });
+
+updateActiveNav();
 
 const revealObserver = new IntersectionObserver(
   (entries) => {
