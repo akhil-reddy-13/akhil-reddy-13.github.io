@@ -955,6 +955,15 @@ body {
     border-radius: 10px;
   }
 
+  .spotify-embed__inner {
+    max-height: 232px;
+  }
+
+  .spotify-embed iframe {
+    width: 100% !important;
+    transform: none !important;
+  }
+
   .cafe-widget {
     border-radius: 10px;
   }

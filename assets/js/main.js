@@ -1,4 +1,4 @@
-/* Navigation — scroll spy + instant highlight on click */
+/* Navigation — scroll spy (iOS-safe via viewport + intersection) */
 const NAV_SECTION_IDS = ['home', 'experience', 'projects', 'education', 'writing'];
 const navLinks = document.querySelectorAll('[data-nav]');
 
@@ -12,27 +12,42 @@ function setActiveNav(id) {
   });
 }
 
-function updateActiveNav() {
+function pickActiveSection() {
   const sections = getNavSections();
   if (!sections.length) return;
 
   const isMobile = window.matchMedia('(max-width: 860px)').matches;
   const scrollY = window.scrollY || document.documentElement.scrollTop;
-  const marker = scrollY + (isMobile ? 110 : Math.min(window.innerHeight * 0.28, 220));
+  const doc = document.documentElement;
 
-  let activeId = sections[0].id;
+  if (scrollY + window.innerHeight >= doc.scrollHeight - 48) {
+    setActiveNav(sections[sections.length - 1].id);
+    return;
+  }
+
+  if (scrollY <= (isMobile ? 96 : 32)) {
+    setActiveNav('home');
+    return;
+  }
+
+  const probeY = isMobile ? 112 : Math.min(window.innerHeight * 0.3, 220);
+  const bottomEdge = isMobile ? window.innerHeight - 68 : window.innerHeight;
+
+  let bestId = sections[0].id;
+  let bestDist = Infinity;
 
   for (const el of sections) {
-    const top = el.getBoundingClientRect().top + scrollY;
-    if (top <= marker) activeId = el.id;
+    const rect = el.getBoundingClientRect();
+    if (rect.bottom < probeY || rect.top > bottomEdge) continue;
+
+    const dist = Math.abs(rect.top - probeY);
+    if (dist < bestDist) {
+      bestDist = dist;
+      bestId = el.id;
+    }
   }
 
-  const doc = document.documentElement;
-  if (scrollY + window.innerHeight >= doc.scrollHeight - 64) {
-    activeId = sections[sections.length - 1].id;
-  }
-
-  setActiveNav(activeId);
+  setActiveNav(bestId);
 }
 
 let navScrollPending = false;
@@ -40,29 +55,43 @@ function scheduleNavUpdate() {
   if (navScrollPending) return;
   navScrollPending = true;
   requestAnimationFrame(() => {
-    updateActiveNav();
+    pickActiveSection();
     navScrollPending = false;
   });
 }
 
-['scroll', 'touchmove', 'touchend', 'touchcancel', 'resize'].forEach((evt) => {
+['scroll', 'touchmove', 'touchend', 'touchcancel', 'resize', 'orientationchange'].forEach((evt) => {
   window.addEventListener(evt, scheduleNavUpdate, { passive: true, capture: true });
 });
 document.addEventListener('scroll', scheduleNavUpdate, { passive: true, capture: true });
 window.addEventListener('scrollend', scheduleNavUpdate, { passive: true });
+
+if (window.visualViewport) {
+  window.visualViewport.addEventListener('scroll', scheduleNavUpdate, { passive: true });
+  window.visualViewport.addEventListener('resize', scheduleNavUpdate, { passive: true });
+}
+
+const navSections = getNavSections();
+if (navSections.length && typeof IntersectionObserver !== 'undefined') {
+  const navObserver = new IntersectionObserver(scheduleNavUpdate, {
+    threshold: [0, 0.08, 0.2, 0.35, 0.5, 0.75, 1],
+    rootMargin: '-72px 0px -68px 0px',
+  });
+  navSections.forEach((el) => navObserver.observe(el));
+}
 
 navLinks.forEach((link) => {
   link.addEventListener('click', () => {
     const href = link.getAttribute('href');
     if (!href?.startsWith('#')) return;
     setActiveNav(href.slice(1));
-    scheduleNavUpdate();
-    window.setTimeout(scheduleNavUpdate, 120);
-    window.setTimeout(scheduleNavUpdate, 400);
+    window.setTimeout(scheduleNavUpdate, 50);
+    window.setTimeout(scheduleNavUpdate, 350);
+    window.setTimeout(scheduleNavUpdate, 700);
   });
 });
 
-updateActiveNav();
+scheduleNavUpdate();
 
 const revealObserver = new IntersectionObserver(
   (entries) => {
@@ -98,18 +127,35 @@ function spotifyEmbedUrl(kind, id) {
 }
 
 const SPOTIFY_EMBED_SIZE = {
-  playlist: { w: 400, h: 380 },
-  album: { w: 400, h: 352 },
-  track: { w: 400, h: 152 },
+  playlist: { w: 400, h: 380, mobileH: 232 },
+  album: { w: 400, h: 352, mobileH: 232 },
+  track: { w: 400, h: 152, mobileH: 152 },
 };
+
+function spotifyEmbedDimensions(kind) {
+  const size = SPOTIFY_EMBED_SIZE[kind] || SPOTIFY_EMBED_SIZE.track;
+  const mobile = window.matchMedia('(max-width: 860px)').matches;
+  if (mobile) return { w: size.w, h: size.mobileH ?? size.h };
+  return { w: size.w, h: size.h };
+}
 
 function sizeSpotifyEmbed(wrapper, kind) {
   const inner = wrapper?.querySelector('.spotify-embed__inner');
   const iframe = wrapper?.querySelector('iframe');
-  const size = SPOTIFY_EMBED_SIZE[kind] || SPOTIFY_EMBED_SIZE.track;
   if (!inner || !iframe) return;
 
   const apply = () => {
+    const mobile = window.matchMedia('(max-width: 860px)').matches;
+    const size = spotifyEmbedDimensions(kind);
+
+    if (mobile) {
+      inner.style.height = `${size.h}px`;
+      iframe.style.width = '100%';
+      iframe.style.height = `${size.h}px`;
+      iframe.style.transform = 'none';
+      return;
+    }
+
     const width = wrapper.clientWidth || window.innerWidth;
     const scale = width / size.w;
     inner.style.height = `${Math.round(size.h * scale)}px`;
