@@ -16,8 +16,9 @@ function updateActiveNav() {
   const sections = getNavSections();
   if (!sections.length) return;
 
-  const scrollY = window.scrollY;
-  const marker = scrollY + Math.min(window.innerHeight * 0.28, 220);
+  const isMobile = window.matchMedia('(max-width: 860px)').matches;
+  const scrollY = window.scrollY || document.documentElement.scrollTop;
+  const marker = scrollY + (isMobile ? 110 : Math.min(window.innerHeight * 0.28, 220));
 
   let activeId = sections[0].id;
 
@@ -35,23 +36,29 @@ function updateActiveNav() {
 }
 
 let navScrollPending = false;
-window.addEventListener(
-  'scroll',
-  () => {
-    if (navScrollPending) return;
-    navScrollPending = true;
-    requestAnimationFrame(() => {
-      updateActiveNav();
-      navScrollPending = false;
-    });
-  },
-  { passive: true }
-);
+function scheduleNavUpdate() {
+  if (navScrollPending) return;
+  navScrollPending = true;
+  requestAnimationFrame(() => {
+    updateActiveNav();
+    navScrollPending = false;
+  });
+}
+
+['scroll', 'touchmove', 'touchend', 'touchcancel', 'resize'].forEach((evt) => {
+  window.addEventListener(evt, scheduleNavUpdate, { passive: true, capture: true });
+});
+document.addEventListener('scroll', scheduleNavUpdate, { passive: true, capture: true });
+window.addEventListener('scrollend', scheduleNavUpdate, { passive: true });
 
 navLinks.forEach((link) => {
   link.addEventListener('click', () => {
     const href = link.getAttribute('href');
-    if (href?.startsWith('#')) setActiveNav(href.slice(1));
+    if (!href?.startsWith('#')) return;
+    setActiveNav(href.slice(1));
+    scheduleNavUpdate();
+    window.setTimeout(scheduleNavUpdate, 120);
+    window.setTimeout(scheduleNavUpdate, 400);
   });
 });
 
@@ -90,11 +97,34 @@ function spotifyEmbedUrl(kind, id) {
   return `https://open.spotify.com/embed/${kind}/${id}?utm_source=generator&theme=0`;
 }
 
-function embedHeight(kind) {
-  const narrow = window.matchMedia('(max-width: 640px)').matches;
-  if (kind === 'playlist') return narrow ? 300 : 380;
-  if (kind === 'album') return narrow ? 300 : 352;
-  return 152;
+const SPOTIFY_EMBED_SIZE = {
+  playlist: { w: 400, h: 380 },
+  album: { w: 400, h: 352 },
+  track: { w: 400, h: 152 },
+};
+
+function sizeSpotifyEmbed(wrapper, kind) {
+  const inner = wrapper?.querySelector('.spotify-embed__inner');
+  const iframe = wrapper?.querySelector('iframe');
+  const size = SPOTIFY_EMBED_SIZE[kind] || SPOTIFY_EMBED_SIZE.track;
+  if (!inner || !iframe) return;
+
+  const apply = () => {
+    const width = wrapper.clientWidth || window.innerWidth;
+    const scale = width / size.w;
+    inner.style.height = `${Math.round(size.h * scale)}px`;
+    iframe.style.width = `${size.w}px`;
+    iframe.style.height = `${size.h}px`;
+    iframe.style.transform = `scale(${scale})`;
+  };
+
+  apply();
+  if (typeof ResizeObserver !== 'undefined') {
+    const ro = new ResizeObserver(apply);
+    ro.observe(wrapper);
+  } else {
+    window.addEventListener('resize', apply, { passive: true });
+  }
 }
 
 function renderMusic(cfg, data) {
@@ -105,6 +135,7 @@ function renderMusic(cfg, data) {
   const parsed = parseSpotifyUrl(spotifyUrl);
   const embedUrl = data.embed_url || (parsed ? spotifyEmbedUrl(parsed.kind, parsed.id) : '');
   const title = cfg.title || data.title || 'Music';
+  const kind = parsed?.kind || 'track';
 
   if (!embedUrl) {
     root.innerHTML =
@@ -112,16 +143,18 @@ function renderMusic(cfg, data) {
     return;
   }
 
-  const height = embedHeight(parsed?.kind || 'track');
   root.innerHTML = `<div class="spotify-embed">
-    <iframe
-      src="${escapeHtml(embedUrl)}"
-      title="${escapeHtml(title)} on Spotify"
-      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-      loading="lazy"
-      style="height:${height}px"
-    ></iframe>
+    <div class="spotify-embed__inner">
+      <iframe
+        src="${escapeHtml(embedUrl)}"
+        title="${escapeHtml(title)} on Spotify"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+      ></iframe>
+    </div>
   </div>`;
+
+  sizeSpotifyEmbed(root.querySelector('.spotify-embed'), kind);
 }
 
 async function loadMusic() {

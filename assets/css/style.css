@@ -586,13 +586,19 @@ body {
   background: #121212;
   border-radius: 12px;
   overflow: hidden;
-  min-height: 152px;
+  width: 100%;
+}
+
+.spotify-embed__inner {
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
 }
 
 .spotify-embed iframe {
   display: block;
-  width: 100%;
   border: 0;
+  transform-origin: top left;
 }
 
 .music-empty {
