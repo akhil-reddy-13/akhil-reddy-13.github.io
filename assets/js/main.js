@@ -344,7 +344,7 @@ async function loadCafes() {
       .map((c) => {
         const emoji = c.emoji ? ` ${c.emoji}` : '';
         const addr = formatAddress(c.address);
-        return `<button type="button" class="cafe-item" data-id="${escapeHtml(c.id)}">
+        return `<button type="button" class="cafe-item" data-id="${escapeHtml(c.id)}" data-cuelume-press>
           <span class="cafe-item__score">${c.score != null ? c.score.toFixed(1) : '—'}</span>
           <span class="cafe-item__body">
             <span class="cafe-item__name">${escapeHtml(c.name)}${emoji}</span>
