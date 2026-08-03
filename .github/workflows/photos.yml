@@ -1,0 +1,66 @@
+name: Photos
+
+on:
+  workflow_dispatch:
+    inputs:
+      optimize:
+        description: "Re-encode images/photos for the web"
+        type: boolean
+        default: true
+  push:
+    paths:
+      - "images/photos/**"
+      - "data/photos.json"
+      - "tools/photo-sync/**"
+  pull_request:
+    paths:
+      - "images/photos/**"
+      - "data/photos.json"
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    name: Validate gallery
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Validate photos.json + files
+        run: npm run photos:validate
+
+  optimize:
+    name: Optimize photos
+    needs: validate
+    if: github.event_name == 'workflow_dispatch' && inputs.optimize
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Optimize + refresh manifest
+        run: npm run photos:optimize
+
+      - name: Commit optimized assets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add images/photos data/photos.json
+          git diff --staged --quiet || git commit -m "chore: optimize photo gallery assets"
+          git push

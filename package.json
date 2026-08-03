@@ -1,8 +1,17 @@
 {
   "name": "akhil-reddy-13.github.io",
   "private": true,
+  "type": "module",
   "description": "Personal site — static GitHub Pages",
+  "scripts": {
+    "photos:sync": "node tools/photo-sync/sync.mjs",
+    "photos:optimize": "node tools/photo-sync/sync.mjs --optimize",
+    "photos:validate": "node tools/photo-sync/sync.mjs --validate"
+  },
   "dependencies": {
     "cuelume": "^0.1.2"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.3"
   }
 }

@@ -12,3 +12,11 @@ Edit **`data/music.config.json`** with a Spotify share link:
 ```
 
 Works with playlist, album, or track URLs. The site uses Spotify’s official embed iframe — no API keys required.
+
+# Photos
+
+See **[docs/PHOTOS.md](docs/PHOTOS.md)** — sync favorites from Google Photos with:
+
+```bash
+npm run photos:sync
+```

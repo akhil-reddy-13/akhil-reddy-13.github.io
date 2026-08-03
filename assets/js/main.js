@@ -1,5 +1,5 @@
 /* Navigation — scroll spy (iOS-safe via viewport + intersection) */
-const NAV_SECTION_IDS = ['home', 'experience', 'projects', 'education', 'writing'];
+const NAV_SECTION_IDS = ['home', 'experience', 'projects', 'education', 'photos', 'writing'];
 const navLinks = document.querySelectorAll('[data-nav]');
 
 function getNavSections() {
@@ -402,3 +402,110 @@ async function loadCafes() {
 
 loadMusic();
 loadCafes();
+loadPhotos();
+
+async function loadPhotos() {
+  const root = document.getElementById('photo-gallery');
+  if (!root) return;
+
+  try {
+    const data = await (await fetch('data/photos.json')).json();
+    const photos = Array.isArray(data.photos) ? data.photos : Array.isArray(data) ? data : [];
+    if (!photos.length) {
+      root.innerHTML =
+        '<p class="photo-empty">No photos yet. Run <code>npm run photos:sync</code> to pull from Google Photos.</p>';
+      return;
+    }
+
+    root.innerHTML = photos
+      .map((p, i) => {
+        const src = escapeHtml(p.src || '');
+        const caption = escapeHtml(p.caption || '');
+        const date = escapeHtml(p.date || '');
+        const alt = escapeHtml(p.alt || p.caption || 'Photo');
+        const featured = i === 0 ? ' photo-card--featured' : '';
+        return `<button type="button" class="photo-card${featured}" data-index="${i}" data-cuelume-press aria-label="${alt}">
+          <span class="photo-card__frame">
+            <img class="photo-card__img" src="${src}" alt="${alt}" loading="lazy" />
+          </span>
+          <span class="photo-card__meta">
+            ${caption ? `<span class="photo-card__caption">${caption}</span>` : ''}
+            ${date ? `<span class="photo-card__date">${date}</span>` : ''}
+          </span>
+        </button>`;
+      })
+      .join('');
+
+    let lightbox = document.getElementById('photo-lightbox');
+    if (!lightbox) {
+      lightbox = document.createElement('div');
+      lightbox.id = 'photo-lightbox';
+      lightbox.className = 'photo-lightbox';
+      lightbox.setAttribute('role', 'dialog');
+      lightbox.setAttribute('aria-modal', 'true');
+      lightbox.setAttribute('aria-hidden', 'true');
+      lightbox.innerHTML = `
+        <div class="photo-lightbox__inner">
+          <button type="button" class="photo-lightbox__close" aria-label="Close">&times;</button>
+          <button type="button" class="photo-lightbox__nav photo-lightbox__nav--prev" aria-label="Previous">‹</button>
+          <button type="button" class="photo-lightbox__nav photo-lightbox__nav--next" aria-label="Next">›</button>
+          <img class="photo-lightbox__img" src="" alt="" />
+          <p class="photo-lightbox__caption"></p>
+        </div>`;
+      document.body.appendChild(lightbox);
+    }
+
+    const lbImg = lightbox.querySelector('.photo-lightbox__img');
+    const lbCap = lightbox.querySelector('.photo-lightbox__caption');
+    const lbClose = lightbox.querySelector('.photo-lightbox__close');
+    const lbPrev = lightbox.querySelector('.photo-lightbox__nav--prev');
+    const lbNext = lightbox.querySelector('.photo-lightbox__nav--next');
+    let current = 0;
+
+    function show(index) {
+      current = (index + photos.length) % photos.length;
+      const p = photos[current];
+      lbImg.src = p.src;
+      lbImg.alt = p.alt || p.caption || 'Photo';
+      lbCap.textContent = [p.caption, p.date].filter(Boolean).join(' · ');
+    }
+
+    function openLightbox(index) {
+      show(index);
+      lightbox.classList.add('is-open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('is-open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      lbImg.removeAttribute('src');
+    }
+
+    root.querySelectorAll('.photo-card').forEach((btn) => {
+      btn.addEventListener('click', () => openLightbox(Number(btn.dataset.index)));
+    });
+    lbClose.addEventListener('click', closeLightbox);
+    lbPrev.addEventListener('click', (e) => {
+      e.stopPropagation();
+      show(current - 1);
+    });
+    lbNext.addEventListener('click', (e) => {
+      e.stopPropagation();
+      show(current + 1);
+    });
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('is-open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') show(current - 1);
+      if (e.key === 'ArrowRight') show(current + 1);
+    });
+  } catch {
+    root.innerHTML = '<p class="photo-empty">Could not load photos.</p>';
+  }
+}

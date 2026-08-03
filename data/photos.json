@@ -1,0 +1,17 @@
+{
+  "updated": "2026-08-03T23:53:26.269Z",
+  "source": "optimize",
+  "photos": [
+    {
+      "src": "images/photos/golden-gate.jpg",
+      "caption": "Golden Gate",
+      "alt": "Portrait near the Golden Gate Bridge"
+    },
+    {
+      "src": "images/photos/lake-lag-sunset.jpg",
+      "caption": "Lake Lagunita sunset",
+      "alt": "Sunset over Lake Lagunita at Stanford",
+      "date": "2026"
+    }
+  ]
+}
