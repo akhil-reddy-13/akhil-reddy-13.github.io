@@ -835,6 +835,7 @@ body {
   column-count: 3;
   column-gap: 0.55rem;
   max-width: min(56rem, 100%);
+  margin-top: 0.35rem;
 }
 
 .photo-card {
@@ -895,24 +896,35 @@ body {
   opacity: 1;
 }
 
-.photo-card__date {
+.photo-card__label {
   position: absolute;
-  right: 0;
-  bottom: 0;
-  padding: 0.55rem 0.7rem;
-  font-size: 0.72rem;
-  letter-spacing: 0.01em;
-  color: rgba(255, 255, 255, 0.92);
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.55), transparent);
-  width: 100%;
-  text-align: right;
+  inset: auto 0 0 0;
+  padding: 1.75rem 0.7rem 0.55rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.1rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.62), transparent);
   opacity: 0;
   transition: opacity 0.2s var(--ease);
   pointer-events: none;
 }
 
-.photo-card:hover .photo-card__date,
-.photo-card:focus-visible .photo-card__date {
+.photo-card__caption {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.95);
+  letter-spacing: 0.01em;
+}
+
+.photo-card__date {
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.72);
+  font-variant-numeric: tabular-nums;
+}
+
+.photo-card:hover .photo-card__label,
+.photo-card:focus-visible .photo-card__label {
   opacity: 1;
 }
 
@@ -1032,8 +1044,8 @@ body {
     gap: 0.65rem;
   }
 
-  .photo-card__date {
-    opacity: 0.9;
+  .photo-card__label {
+    opacity: 0.95;
   }
 
   .photo-lightbox__nav--prev { left: 0.25rem; }
@@ -1041,7 +1053,7 @@ body {
 }
 
 /* Footer */
-#writing.section {
+#photos.section {
   margin-bottom: 0;
 }
 

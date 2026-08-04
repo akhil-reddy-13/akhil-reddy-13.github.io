@@ -1,5 +1,5 @@
 /* Navigation — scroll spy (iOS-safe via viewport + intersection) */
-const NAV_SECTION_IDS = ['home', 'experience', 'projects', 'education', 'photos', 'writing'];
+const NAV_SECTION_IDS = ['home', 'experience', 'projects', 'education', 'writing', 'photos'];
 const navLinks = document.querySelectorAll('[data-nav]');
 
 function getNavSections() {
@@ -420,13 +420,15 @@ async function loadPhotos() {
     root.innerHTML = photos
       .map((p, i) => {
         const src = escapeHtml(p.src || '');
+        const caption = escapeHtml(p.caption || '');
         const date = escapeHtml(p.date || '');
         const alt = escapeHtml(p.alt || p.caption || 'Photo');
+        const label = [caption, date].filter(Boolean).join(' · ');
         const ratio =
           Number(p.w) > 0 && Number(p.h) > 0 ? ` style="aspect-ratio:${Number(p.w)}/${Number(p.h)}"` : '';
         return `<button type="button" class="photo-card" data-index="${i}" data-cuelume-press aria-label="${alt}">
           <img class="photo-card__img" src="${src}" alt="${alt}" loading="lazy"${ratio} />
-          ${date ? `<span class="photo-card__date">${date}</span>` : ''}
+          ${label ? `<span class="photo-card__label"><span class="photo-card__caption">${caption || date}</span>${caption && date ? `<span class="photo-card__date">${date}</span>` : ''}</span>` : ''}
         </button>`;
       })
       .join('');
@@ -462,7 +464,7 @@ async function loadPhotos() {
       const p = photos[current];
       lbImg.src = p.src;
       lbImg.alt = p.alt || p.caption || 'Photo';
-      lbCap.textContent = p.date || p.caption || '';
+      lbCap.textContent = [p.caption, p.date].filter(Boolean).join(' · ');
     }
 
     function openLightbox(index) {

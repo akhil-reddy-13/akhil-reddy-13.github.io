@@ -1,83 +1,94 @@
 {
-  "updated": "2026-08-04T00:04:33.043Z",
+  "updated": "2026-08-04T00:10:00.000Z",
   "source": "manual",
   "photos": [
     {
-      "src": "images/photos/img-1645.jpg",
-      "alt": "Photo",
-      "date": "Jan 2026",
-      "w": 1600,
-      "h": 1200
-    },
-    {
-      "src": "images/photos/img-2096.jpg",
-      "alt": "Photo",
-      "date": "Feb 2026",
-      "w": 1600,
-      "h": 1200
-    },
-    {
-      "src": "images/photos/img-2181.jpg",
-      "alt": "Photo",
-      "date": "Feb 2026",
+      "src": "images/photos/img-4180.jpg",
+      "caption": "Bay Bridge",
+      "alt": "Bay Bridge at night from the water",
+      "date": "May 2026",
       "w": 1200,
       "h": 1600
-    },
-    {
-      "src": "images/photos/img-2167.jpg",
-      "alt": "Photo",
-      "date": "Feb 2026",
-      "w": 1600,
-      "h": 1200
-    },
-    {
-      "src": "images/photos/img-3596.jpg",
-      "alt": "Photo",
-      "date": "Mar 2026",
-      "w": 1200,
-      "h": 1600
-    },
-    {
-      "src": "images/photos/img-2812.jpg",
-      "alt": "Photo",
-      "date": "Mar 2026",
-      "w": 1600,
-      "h": 1200
-    },
-    {
-      "src": "images/photos/img-3016.jpg",
-      "alt": "Photo",
-      "date": "Mar 2026",
-      "w": 1600,
-      "h": 1200
     },
     {
       "src": "images/photos/img-2993.jpg",
-      "alt": "Photo",
+      "caption": "Seagull hour",
+      "alt": "Seagull over the bay at Golden Gate sunset",
       "date": "Mar 2026",
       "w": 1200,
       "h": 1600
     },
     {
       "src": "images/photos/img-2928.jpg",
-      "alt": "Photo",
+      "caption": "Presidio",
+      "alt": "Golden Gate Bridge from the Presidio lawn",
       "date": "Mar 2026",
       "w": 1600,
       "h": 1200
     },
     {
       "src": "images/photos/img-3218.jpg",
-      "alt": "Photo",
+      "caption": "North tower",
+      "alt": "Golden Gate Bridge from the north shore",
       "date": "Mar 2026",
       "w": 1600,
       "h": 1200
     },
     {
-      "src": "images/photos/img-4180.jpg",
-      "alt": "Photo",
-      "date": "May 2026",
+      "src": "images/photos/img-3596.jpg",
+      "caption": "Gate after dark",
+      "alt": "Golden Gate Bridge at night over the bay",
+      "date": "Mar 2026",
       "w": 1200,
       "h": 1600
+    },
+    {
+      "src": "images/photos/img-3016.jpg",
+      "caption": "Westbound gold",
+      "alt": "Golden Gate Bridge at sunset",
+      "date": "Mar 2026",
+      "w": 1600,
+      "h": 1200
+    },
+    {
+      "src": "images/photos/img-2812.jpg",
+      "caption": "Marsh fire",
+      "alt": "Sunset reflected in a marsh",
+      "date": "Mar 2026",
+      "w": 1600,
+      "h": 1200
+    },
+    {
+      "src": "images/photos/img-2181.jpg",
+      "caption": "Tide glass",
+      "alt": "Wet sand reflecting sunset clouds",
+      "date": "Feb 2026",
+      "w": 1200,
+      "h": 1600
+    },
+    {
+      "src": "images/photos/img-2167.jpg",
+      "caption": "Open water",
+      "alt": "Ocean horizon at dusk",
+      "date": "Feb 2026",
+      "w": 1600,
+      "h": 1200
+    },
+    {
+      "src": "images/photos/img-2096.jpg",
+      "caption": "Grey morning",
+      "alt": "Overcast beach and pier",
+      "date": "Feb 2026",
+      "w": 1600,
+      "h": 1200
+    },
+    {
+      "src": "images/photos/img-1645.jpg",
+      "caption": "Orion",
+      "alt": "Starry night over a granite peak",
+      "date": "Jan 2026",
+      "w": 1600,
+      "h": 1200
     }
   ]
 }
