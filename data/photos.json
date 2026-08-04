@@ -1,91 +1,91 @@
 {
-  "updated": "2026-08-04T00:10:00.000Z",
+  "updated": "2026-08-04T00:40:00.000Z",
   "source": "manual",
   "photos": [
     {
       "src": "images/photos/img-4180.jpg",
-      "caption": "Bay Bridge",
-      "alt": "Bay Bridge at night from the water",
+      "caption": "Golden Gate at night",
+      "alt": "Golden Gate at night",
       "date": "May 2026",
       "w": 1200,
       "h": 1600
     },
     {
       "src": "images/photos/img-2993.jpg",
-      "caption": "Seagull hour",
-      "alt": "Seagull over the bay at Golden Gate sunset",
+      "caption": "Seagull sunset hour",
+      "alt": "Seagull sunset hour",
       "date": "Mar 2026",
       "w": 1200,
       "h": 1600
     },
     {
       "src": "images/photos/img-2928.jpg",
-      "caption": "Presidio",
-      "alt": "Golden Gate Bridge from the Presidio lawn",
+      "caption": "Presidio of San Francisco",
+      "alt": "Presidio of San Francisco",
       "date": "Mar 2026",
       "w": 1600,
       "h": 1200
     },
     {
       "src": "images/photos/img-3218.jpg",
-      "caption": "North tower",
-      "alt": "Golden Gate Bridge from the north shore",
+      "caption": "Golden Gate from the North",
+      "alt": "Golden Gate from the North",
       "date": "Mar 2026",
       "w": 1600,
       "h": 1200
     },
     {
       "src": "images/photos/img-3596.jpg",
-      "caption": "Gate after dark",
-      "alt": "Golden Gate Bridge at night over the bay",
+      "caption": "SF after dark",
+      "alt": "SF after dark",
       "date": "Mar 2026",
       "w": 1200,
       "h": 1600
     },
     {
       "src": "images/photos/img-3016.jpg",
-      "caption": "Westbound gold",
-      "alt": "Golden Gate Bridge at sunset",
+      "caption": "Gated sunset",
+      "alt": "Gated sunset",
       "date": "Mar 2026",
       "w": 1600,
       "h": 1200
     },
     {
       "src": "images/photos/img-2812.jpg",
-      "caption": "Marsh fire",
-      "alt": "Sunset reflected in a marsh",
+      "caption": "Lake Lag marshy sunset",
+      "alt": "Lake Lag marshy sunset",
       "date": "Mar 2026",
       "w": 1600,
       "h": 1200
     },
     {
       "src": "images/photos/img-2181.jpg",
-      "caption": "Tide glass",
-      "alt": "Wet sand reflecting sunset clouds",
+      "caption": "Monterey beach sunset",
+      "alt": "Monterey beach sunset",
       "date": "Feb 2026",
       "w": 1200,
       "h": 1600
     },
     {
       "src": "images/photos/img-2167.jpg",
-      "caption": "Open water",
-      "alt": "Ocean horizon at dusk",
+      "caption": "Pacific open water",
+      "alt": "Pacific open water",
       "date": "Feb 2026",
       "w": 1600,
       "h": 1200
     },
     {
       "src": "images/photos/img-2096.jpg",
-      "caption": "Grey morning",
-      "alt": "Overcast beach and pier",
+      "caption": "Grey Monterey morning",
+      "alt": "Grey Monterey morning",
       "date": "Feb 2026",
       "w": 1600,
       "h": 1200
     },
     {
       "src": "images/photos/img-1645.jpg",
-      "caption": "Orion",
-      "alt": "Starry night over a granite peak",
+      "caption": "Yosemite's 'Seven Sisters'",
+      "alt": "Yosemite's Seven Sisters under the stars",
       "date": "Jan 2026",
       "w": 1600,
       "h": 1200
