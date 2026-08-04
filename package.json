@@ -4,7 +4,6 @@
   "type": "module",
   "description": "Personal site — static GitHub Pages",
   "scripts": {
-    "photos:sync": "node tools/photo-sync/sync.mjs",
     "photos:optimize": "node tools/photo-sync/sync.mjs --optimize",
     "photos:validate": "node tools/photo-sync/sync.mjs --validate"
   },

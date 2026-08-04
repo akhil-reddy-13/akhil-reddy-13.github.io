@@ -37,11 +37,12 @@ export async function optimizePhotos(dir, { maxEdge = 1600, quality = 82 } = {})
       fs.renameSync(tmp, dest);
       if (dest !== src && fs.existsSync(src)) fs.unlinkSync(src);
 
+      const outMeta = await sharp(dest, { failOn: 'none' }).metadata();
       const stat = fs.statSync(dest);
       out.push({
         filename: destName,
-        width: meta.width,
-        height: meta.height,
+        width: outMeta.width || meta.width,
+        height: outMeta.height || meta.height,
         bytes: stat.size,
       });
       ok(`Optimized ${destName}`);

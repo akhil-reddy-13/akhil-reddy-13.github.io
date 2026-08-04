@@ -413,25 +413,20 @@ async function loadPhotos() {
     const photos = Array.isArray(data.photos) ? data.photos : Array.isArray(data) ? data : [];
     if (!photos.length) {
       root.innerHTML =
-        '<p class="photo-empty">No photos yet. Run <code>npm run photos:sync</code> to pull from Google Photos.</p>';
+        '<p class="photo-empty">No photos yet. Drop images into <code>images/photos/</code> and run <code>npm run photos:optimize</code>.</p>';
       return;
     }
 
     root.innerHTML = photos
       .map((p, i) => {
         const src = escapeHtml(p.src || '');
-        const caption = escapeHtml(p.caption || '');
         const date = escapeHtml(p.date || '');
         const alt = escapeHtml(p.alt || p.caption || 'Photo');
-        const featured = i === 0 ? ' photo-card--featured' : '';
-        return `<button type="button" class="photo-card${featured}" data-index="${i}" data-cuelume-press aria-label="${alt}">
-          <span class="photo-card__frame">
-            <img class="photo-card__img" src="${src}" alt="${alt}" loading="lazy" />
-          </span>
-          <span class="photo-card__meta">
-            ${caption ? `<span class="photo-card__caption">${caption}</span>` : ''}
-            ${date ? `<span class="photo-card__date">${date}</span>` : ''}
-          </span>
+        const ratio =
+          Number(p.w) > 0 && Number(p.h) > 0 ? ` style="aspect-ratio:${Number(p.w)}/${Number(p.h)}"` : '';
+        return `<button type="button" class="photo-card" data-index="${i}" data-cuelume-press aria-label="${alt}">
+          <img class="photo-card__img" src="${src}" alt="${alt}" loading="lazy"${ratio} />
+          ${date ? `<span class="photo-card__date">${date}</span>` : ''}
         </button>`;
       })
       .join('');
@@ -467,7 +462,7 @@ async function loadPhotos() {
       const p = photos[current];
       lbImg.src = p.src;
       lbImg.alt = p.alt || p.caption || 'Photo';
-      lbCap.textContent = [p.caption, p.date].filter(Boolean).join(' · ');
+      lbCap.textContent = p.date || p.caption || '';
     }
 
     function openLightbox(index) {

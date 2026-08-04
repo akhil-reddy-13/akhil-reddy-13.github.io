@@ -15,8 +15,8 @@ Works with playlist, album, or track URLs. The site uses Spotify’s official em
 
 # Photos
 
-See **[docs/PHOTOS.md](docs/PHOTOS.md)** — sync favorites from Google Photos with:
+See **[docs/PHOTOS.md](docs/PHOTOS.md)** — drop images into `images/photos/`, then:
 
 ```bash
-npm run photos:sync
+npm run photos:optimize
 ```

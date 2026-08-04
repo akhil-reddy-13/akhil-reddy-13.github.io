@@ -1,83 +1,83 @@
 {
-  "updated": "2026-08-04T00:00:29.217Z",
-  "source": "google-photos-picker",
+  "updated": "2026-08-04T00:04:33.043Z",
+  "source": "manual",
   "photos": [
     {
       "src": "images/photos/img-1645.jpg",
-      "caption": "Img 1645 · Jan 2026",
-      "alt": "Img 1645 · Jan 2026",
+      "alt": "Photo",
       "date": "Jan 2026",
-      "googleId": "AGZuNYcoVh17CZWkL_I8SGMl88_HtEwi5l3hsaSNMIL4zGREzNS_eUxb-RCy2zyB1ERknuAKtCEM-EZAf0u1PlH16vJmVzTqkg"
+      "w": 1600,
+      "h": 1200
     },
     {
       "src": "images/photos/img-2096.jpg",
-      "caption": "Img 2096 · Feb 2026",
-      "alt": "Img 2096 · Feb 2026",
+      "alt": "Photo",
       "date": "Feb 2026",
-      "googleId": "AGZuNYdW16ynEzWNsigcWILc7qvBK_JxUqBx_v-1SbY64gCJ9vWNvNd-69wiv1eZeqEvWzGdIdozvNW5vnL4pixXpwIlFfkaIg"
+      "w": 1600,
+      "h": 1200
     },
     {
       "src": "images/photos/img-2181.jpg",
-      "caption": "Img 2181 · Feb 2026",
-      "alt": "Img 2181 · Feb 2026",
+      "alt": "Photo",
       "date": "Feb 2026",
-      "googleId": "AGZuNYfFaubsJ0N6mbdKQxDBnil4nhdezfl9yF-yWRu31Jd4z7LZb2BAYLSFavcfJMP4TRnMNuyAtfdLaERkbNozqhz2pogLkg"
+      "w": 1200,
+      "h": 1600
     },
     {
       "src": "images/photos/img-2167.jpg",
-      "caption": "Img 2167 · Feb 2026",
-      "alt": "Img 2167 · Feb 2026",
+      "alt": "Photo",
       "date": "Feb 2026",
-      "googleId": "AGZuNYfXEWZlAd_Hkoz73gpCXTi_c6CXDILuhIlPXvex8yiNOGAkih0KRRIj0dKrKpmSDSQL-4dZRtdzlYLO5cpV9XUTrz0ajg"
+      "w": 1600,
+      "h": 1200
     },
     {
       "src": "images/photos/img-3596.jpg",
-      "caption": "Img 3596 · Mar 2026",
-      "alt": "Img 3596 · Mar 2026",
+      "alt": "Photo",
       "date": "Mar 2026",
-      "googleId": "AGZuNYekvM3QrtRG3sBGVkdPVCJNDG7U968WkDjBpTYB07T7d3T7Ih-Lk2E_YXWsn6eMHaHeROIXOtKUPdBxF4CoLRTRDQ6_Vg"
+      "w": 1200,
+      "h": 1600
     },
     {
       "src": "images/photos/img-2812.jpg",
-      "caption": "Img 2812 · Mar 2026",
-      "alt": "Img 2812 · Mar 2026",
+      "alt": "Photo",
       "date": "Mar 2026",
-      "googleId": "AGZuNYd9ksTmmeBAFDP9ZcPi6me6rIR905xR3c01S9h5jvZBZZKr8XlPDdl3Kl7bbgDocAAFCUE-MM79gDJfdWocmmLKWw6j5w"
+      "w": 1600,
+      "h": 1200
     },
     {
       "src": "images/photos/img-3016.jpg",
-      "caption": "Img 3016 · Mar 2026",
-      "alt": "Img 3016 · Mar 2026",
+      "alt": "Photo",
       "date": "Mar 2026",
-      "googleId": "AGZuNYejRzIfX85_Jmp5x_uWIqtZUfiVWMwaFH5zZE1z_4VVKG1r26xYpewxf-rBNv9Sy0zF_E7dZ9ekOKZUVQ5tm0b15dRJYw"
+      "w": 1600,
+      "h": 1200
     },
     {
       "src": "images/photos/img-2993.jpg",
-      "caption": "Img 2993 · Mar 2026",
-      "alt": "Img 2993 · Mar 2026",
+      "alt": "Photo",
       "date": "Mar 2026",
-      "googleId": "AGZuNYfBandi5rP3mKC5NapykQEB3nCI4sSy7Azs1m5XuZ5Ptrh_JIVaPKp7NmjedYgTq9z9RIkRt6fqHXkTh9RbScUyWhGjEw"
+      "w": 1200,
+      "h": 1600
     },
     {
       "src": "images/photos/img-2928.jpg",
-      "caption": "Img 2928 · Mar 2026",
-      "alt": "Img 2928 · Mar 2026",
+      "alt": "Photo",
       "date": "Mar 2026",
-      "googleId": "AGZuNYcI1lSWq8aTNGUbm7T4Glbk9ZW1XVJjz72_gzuL8eZRnk1vO46nG4IKmz9RZNunBukHPJjwg-NIa8hT30l3hDL4m7YNCA"
+      "w": 1600,
+      "h": 1200
     },
     {
       "src": "images/photos/img-3218.jpg",
-      "caption": "Img 3218 · Mar 2026",
-      "alt": "Img 3218 · Mar 2026",
+      "alt": "Photo",
       "date": "Mar 2026",
-      "googleId": "AGZuNYcMW2yyggFaDfGZlrZ1z_l5704wPoy8KjvOq0eptXolMMWIFegOKsEbsduyLPTLrV4h0VtSIp3RZEWePs3SjhAfLqU72g"
+      "w": 1600,
+      "h": 1200
     },
     {
       "src": "images/photos/img-4180.jpg",
-      "caption": "Img 4180 · May 2026",
-      "alt": "Img 4180 · May 2026",
+      "alt": "Photo",
       "date": "May 2026",
-      "googleId": "AGZuNYdif_g2ieGesRCywTDukE3YbEufAGWb_O2NosGofNvMXZrsNtIvR8rqlZRxa984T3sLYMBojeIbAczPjqNBswixAAgbwA"
+      "w": 1200,
+      "h": 1600
     }
   ]
 }

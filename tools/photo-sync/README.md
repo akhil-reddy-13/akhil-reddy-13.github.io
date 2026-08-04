@@ -1,11 +1,11 @@
-# Photo Sync — Google Photos Picker → portfolio gallery
+# Photos helper
 
-Interactive sync that opens Google Photos Picker, downloads what you pick,
-optimizes images, and writes `data/photos.json` for the static site.
+Drop JPEGs into `images/photos/`, then:
 
 ```bash
-npm run photos:sync
+npm run photos:optimize   # recompress + refresh data/photos.json
+npm run photos:validate   # sanity-check files exist
 ```
 
-Requires `GOOGLE_PHOTOS_CLIENT_ID` and `GOOGLE_PHOTOS_CLIENT_SECRET` in `.env`
-(see [docs/PHOTOS.md](../../docs/PHOTOS.md)).
+Edit captions/dates in `data/photos.json`, then commit and push.
+See [docs/PHOTOS.md](../../docs/PHOTOS.md).
