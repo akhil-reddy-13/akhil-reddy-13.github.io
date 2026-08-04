@@ -471,12 +471,14 @@ async function loadPhotos() {
       show(index);
       lightbox.classList.add('is-open');
       lightbox.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('photo-lightbox-open');
       document.body.style.overflow = 'hidden';
     }
 
     function closeLightbox() {
       lightbox.classList.remove('is-open');
       lightbox.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('photo-lightbox-open');
       document.body.style.overflow = '';
       lbImg.removeAttribute('src');
     }
@@ -496,6 +498,28 @@ async function loadPhotos() {
     lightbox.addEventListener('click', (e) => {
       if (e.target === lightbox) closeLightbox();
     });
+
+    let touchX = null;
+    lightbox.addEventListener(
+      'touchstart',
+      (e) => {
+        touchX = e.changedTouches[0]?.clientX ?? null;
+      },
+      { passive: true }
+    );
+    lightbox.addEventListener(
+      'touchend',
+      (e) => {
+        if (touchX == null || !lightbox.classList.contains('is-open')) return;
+        const dx = (e.changedTouches[0]?.clientX ?? touchX) - touchX;
+        touchX = null;
+        if (Math.abs(dx) < 48) return;
+        if (dx < 0) show(current + 1);
+        else show(current - 1);
+      },
+      { passive: true }
+    );
+
     document.addEventListener('keydown', (e) => {
       if (!lightbox.classList.contains('is-open')) return;
       if (e.key === 'Escape') closeLightbox();
