@@ -1,6 +1,6 @@
 # Photos helper
 
-Drop JPEGs into `images/photos/`, then:
+Drop photos into `photos-inbox/` and run `npm run photos:add` (see docs/PHOTOS.md). Maintenance:
 
 ```bash
 npm run photos:optimize   # recompress + refresh data/photos.json

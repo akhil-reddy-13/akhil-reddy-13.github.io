@@ -1,17 +1,40 @@
 {
-  "updated": "2026-05-22",
-  "region": "Palo Alto & Mountain View, CA",
+  "updated": "2026-11-02",
   "cafes": [
+    {
+      "id": "bonbon-matcha",
+      "name": "BonBon Matcha",
+      "emoji": "🍵",
+      "score": 10,
+      "note": "Earl Grey Cloud Matcha",
+      "tags": ["Matcha"],
+      "address": "439 Waverley St, Palo Alto, CA 94301",
+      "region": "Bay",
+      "lat": 37.4477,
+      "lng": -122.1608
+    },
     {
       "id": "maruwu",
       "name": "MARUWU SEICHA",
       "emoji": "🍵",
-      "score": 10.0,
+      "score": 9.9,
       "note": "Matcha Latte (Hokkaido)",
       "tags": ["Tea", "Matcha"],
       "address": "418 University Ave, Palo Alto, CA 94301",
-      "lat": 37.4472,
-      "lng": -122.1605
+      "region": "Bay",
+      "lat": 37.4473,
+      "lng": -122.1601
+    },
+    {
+      "id": "pilgrim",
+      "name": "Pilgrim Coffee Company",
+      "emoji": "☕",
+      "score": 9.7,
+      "tags": ["Coffee Shop"],
+      "address": "12643 Metcalf Ave, Overland Park, KS 66213",
+      "region": "Kansas",
+      "lat": 38.8995,
+      "lng": -94.6677
     },
     {
       "id": "molly-tea",
@@ -21,63 +44,123 @@
       "note": "Jasmine Matcha",
       "tags": ["Bubble Tea"],
       "address": "180 University Ave, Palo Alto, CA 94301",
-      "lat": 37.444,
-      "lng": -122.1615
+      "region": "Bay",
+      "lat": 37.4444,
+      "lng": -122.1626
     },
     {
       "id": "yummy-future",
       "name": "Yummy Future",
       "emoji": "🤖",
-      "score": 9.3,
+      "score": 9.5,
       "note": "Black Sesame Matcha",
       "tags": ["Cafe"],
       "address": "240 University Ave, Palo Alto, CA 94301",
-      "lat": 37.4452,
-      "lng": -122.1582
+      "region": "Bay",
+      "lat": 37.4451,
+      "lng": -122.1621
     },
     {
       "id": "blue-bottle",
       "name": "Blue Bottle Coffee",
       "emoji": "☕",
-      "score": 9.1,
+      "score": 9.3,
       "note": "Iced Nola",
       "tags": ["Coffee Shop"],
       "address": "456 University Ave, Palo Alto, CA 94301",
-      "lat": 37.4467,
-      "lng": -122.1592
+      "region": "Bay",
+      "lat": 37.4474,
+      "lng": -122.1594
+    },
+    {
+      "id": "roasterie",
+      "name": "The Roasterie",
+      "emoji": "☕",
+      "score": 9.2,
+      "tags": ["Coffee Shop"],
+      "address": "4511 W 119th St, Leawood, KS 66209",
+      "region": "Kansas",
+      "lat": 38.9128,
+      "lng": -94.638
+    },
+    {
+      "id": "front-range",
+      "name": "Front Range",
+      "emoji": "☕",
+      "score": 9.1,
+      "tags": ["Coffee Shop"],
+      "address": "400 E Gregory Blvd, Kansas City, MO 64131",
+      "region": "Kansas",
+      "lat": 38.9994,
+      "lng": -94.5844
     },
     {
       "id": "goodthing",
-      "name": "Goodthing Coffee",
+      "name": "Good Thing Coffee",
       "emoji": "☕",
-      "score": 8.5,
+      "score": 8.9,
       "note": "Pistachio Einspanner",
       "tags": ["Coffee Shop"],
       "address": "411 High St, Palo Alto, CA 94301",
-      "lat": 37.4445,
-      "lng": -122.161
+      "region": "Bay",
+      "lat": 37.4449,
+      "lng": -122.1642
+    },
+    {
+      "id": "outta-the-blue",
+      "name": "Outta the Blue",
+      "emoji": "🌊",
+      "score": 8.8,
+      "tags": ["Cafe"],
+      "address": "5291 W 116th Pl, Leawood, KS 66211",
+      "region": "Kansas",
+      "lat": 38.9174,
+      "lng": -94.6469
     },
     {
       "id": "boba-bliss",
       "name": "Boba Bliss",
       "emoji": "🧋",
-      "score": 8.2,
+      "score": 8.5,
       "note": "Vietnamese Coffee",
       "tags": ["Bubble Tea"],
       "address": "1040 Grant Rd, Mountain View, CA 94040",
-      "lat": 37.378,
-      "lng": -122.074
+      "region": "Bay",
+      "lat": 37.3789,
+      "lng": -122.0756
     },
     {
-      "id": "verve",
-      "name": "Verve Coffee Roasters",
+      "id": "mclains",
+      "name": "McLain's Market",
+      "emoji": "🥐",
+      "score": 8.4,
+      "tags": ["Bakery", "Cafe"],
+      "address": "15102 Travis St, Overland Park, KS 66223",
+      "region": "Kansas",
+      "lat": 38.8544,
+      "lng": -94.6669
+    },
+    {
+      "id": "current-state",
+      "name": "Current State Coffee",
       "emoji": "☕",
-      "score": 7.6,
-      "note": "Americano",
+      "score": 8.3,
       "tags": ["Coffee Shop"],
-      "address": "162 University Ave, Palo Alto, CA 94301",
-      "lat": 37.4419,
-      "lng": -122.143
+      "address": "11217 Johnson Dr, Shawnee, KS 66203",
+      "region": "Kansas",
+      "lat": 39.0228,
+      "lng": -94.716
+    },
+    {
+      "id": "bruu",
+      "name": "Bruú Café",
+      "emoji": "🧋",
+      "score": 8,
+      "tags": ["Bubble Tea"],
+      "address": "5225 W 116th Pl, Leawood, KS 66211",
+      "region": "Kansas",
+      "lat": 38.9174,
+      "lng": -94.6455
     }
   ]
 }

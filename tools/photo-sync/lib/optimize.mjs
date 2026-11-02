@@ -24,6 +24,14 @@ export async function optimizePhotos(dir, { maxEdge = 1600, quality = 82 } = {})
     try {
       const image = sharp(src, { failOn: 'none' }).rotate();
       const meta = await image.metadata();
+
+      // Already web-sized JPEGs are left alone: re-encoding them every run
+      // stacks JPEG loss and slowly degrades the gallery.
+      const isJpeg = ext === '.jpg' || ext === '.jpeg';
+      if (isJpeg && Math.max(meta.width || 0, meta.height || 0) <= maxEdge && !meta.exif) {
+        out.push({ filename: file, width: meta.width, height: meta.height, bytes: fs.statSync(src).size });
+        continue;
+      }
       await image
         .resize({
           width: maxEdge,

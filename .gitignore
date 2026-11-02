@@ -2,3 +2,6 @@
 .env.local
 .DS_Store
 node_modules/
+# Raw photos waiting for `npm run photos:add` (may contain GPS EXIF)
+photos-inbox/*
+!photos-inbox/.gitkeep

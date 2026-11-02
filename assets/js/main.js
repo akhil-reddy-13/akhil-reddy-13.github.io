@@ -127,8 +127,10 @@ function spotifyEmbedUrl(kind, id) {
 }
 
 const SPOTIFY_EMBED_SIZE = {
-  playlist: { w: 400, h: 380, mobileH: 232 },
-  album: { w: 400, h: 352, mobileH: 232 },
+  // Spotify only has two layouts: compact (152) and full (352+). Anything in
+  // between renders the compact card with dead space under it.
+  playlist: { w: 400, h: 380, mobileH: 152 },
+  album: { w: 400, h: 352, mobileH: 152 },
   track: { w: 400, h: 152, mobileH: 152 },
 };
 
@@ -145,13 +147,16 @@ function sizeSpotifyEmbed(wrapper, kind) {
   if (!inner || !iframe) return;
 
   const apply = () => {
-    const mobile = window.matchMedia('(max-width: 860px)').matches;
     const size = spotifyEmbedDimensions(kind);
 
-    if (mobile) {
-      inner.style.height = `${size.h}px`;
+    // Below the two-column layout, use Spotify's native sizes at full width:
+    // compact (152) on phones, full (352) once there's room (unfolded, tablet).
+    if (!window.matchMedia('(min-width: 1100px)').matches) {
+      const roomy = (wrapper.clientWidth || window.innerWidth) >= 560;
+      const h = kind === 'track' ? 152 : roomy ? 352 : size.h;
+      inner.style.height = `${h}px`;
       iframe.style.width = '100%';
-      iframe.style.height = `${size.h}px`;
+      iframe.style.height = `${h}px`;
       iframe.style.transform = 'none';
       return;
     }
@@ -233,12 +238,14 @@ function googleMapsUrl(cafe) {
 
 function formatAddress(address) {
   if (!address) return '';
-  return address.replace(/, CA \d{5}$/, '').trim();
+  return address.replace(/,\s*[A-Z]{2}\s+\d{5}(-\d{4})?$/, '').trim();
 }
+
+const hasCoords = (c) => Number.isFinite(c.lat) && Number.isFinite(c.lng);
 
 function initCafeMap(cafes, onSelect) {
   const mapEl = document.getElementById('cafe-map');
-  if (!mapEl || typeof L === 'undefined') return null;
+  if (!mapEl || typeof L === 'undefined' || !cafes.some(hasCoords)) return null;
 
   if (mapEl._leafletMap) {
     mapEl._leafletMap.remove();
@@ -256,29 +263,42 @@ function initCafeMap(cafes, onSelect) {
   });
   mapEl._leafletMap = map;
 
-  L.control.zoom({ position: 'topright' }).addTo(map);
+  const zoomCtl = L.control.zoom({ position: 'topright' }).addTo(map);
 
   map.scrollWheelZoom.disable();
   mapEl.addEventListener('mouseenter', () => map.scrollWheelZoom.enable());
   mapEl.addEventListener('mouseleave', () => map.scrollWheelZoom.disable());
 
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
-    attribution: '&copy; OSM &copy; CARTO',
-    subdomains: 'abcd',
-    maxZoom: 20,
+  // Esri dark gray canvas: keyless (CARTO's dark_all now requires an API key).
+  const esri = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas';
+  L.tileLayer(`${esri}/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}`, {
+    attribution: '&copy; Esri',
+    maxZoom: 16,
+  }).addTo(map);
+  L.tileLayer(`${esri}/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}`, {
+    maxZoom: 16,
   }).addTo(map);
 
-  const bounds = L.latLngBounds(cafes.map((c) => [c.lat, c.lng]));
+  // One marker per cafe; the number is its rank within its own region.
   const markers = {};
-
   cafes.forEach((cafe) => {
-    const marker = L.circleMarker([cafe.lat, cafe.lng], {
-      radius: 7,
-      color: '#1ed760',
-      weight: 2,
-      fillColor: '#1ed760',
-      fillOpacity: 0.35,
+    if (!hasCoords(cafe)) return;
+    const marker = L.marker([cafe.lat, cafe.lng], {
+      icon: L.divIcon({
+        className: 'cafe-pin',
+        html: `<span>${cafe._rank}</span>`,
+        iconSize: [22, 22],
+        iconAnchor: [11, 11],
+      }),
+      title: cafe.name,
+      riseOnHover: true,
     }).addTo(map);
+
+    marker.bindTooltip(escapeHtml(cafe.name), {
+      direction: 'top',
+      offset: [0, -12],
+      className: 'cafe-tip',
+    });
 
     marker.on('click', (e) => {
       L.DomEvent.stopPropagation(e);
@@ -288,26 +308,45 @@ function initCafeMap(cafes, onSelect) {
     markers[cafe.id] = marker;
   });
 
-  function refreshMap() {
-    map.invalidateSize(true);
-    if (!map._userPanned) map.fitBounds(bounds.pad(0.15));
+  // Frame the cluster around a region's top cafe; far-flung ones fly in on select.
+  let bounds = null;
+  function frame(list) {
+    const located = list.filter(hasCoords);
+    if (!located.length) return;
+    // Keep everything except true outliers: within 3x the median distance
+    // from the top cafe (min 1.5 km). Tight downtown clusters stay readable,
+    // spread-out metros still fit on screen.
+    const top = L.latLng(located[0].lat, located[0].lng);
+    const dist = located.map((c) => top.distanceTo([c.lat, c.lng]));
+    const sorted = dist.slice(1).sort((a, b) => a - b);
+    const median = sorted.length ? sorted[Math.floor(sorted.length / 2)] : 0;
+    const limit = Math.max(median * 3, 1500);
+    const near = located.filter((_, i) => dist[i] <= limit);
+    bounds = L.latLngBounds((near.length > 1 ? near : located).map((c) => [c.lat, c.lng]));
+    map._userPanned = false;
+    refreshMap();
   }
 
-  refreshMap();
-  requestAnimationFrame(refreshMap);
-  setTimeout(refreshMap, 100);
-  setTimeout(refreshMap, 400);
+  function refreshMap() {
+    map.invalidateSize(true);
+    if (bounds && !map._userPanned) map.fitBounds(bounds.pad(0.2), { maxZoom: 16 });
+  }
 
   if (typeof ResizeObserver !== 'undefined') {
     const ro = new ResizeObserver(() => refreshMap());
     ro.observe(mapEl.parentElement || mapEl);
   }
 
-  map.on('dragstart zoomend', () => {
+  map.on('dragstart', () => {
+    map._userPanned = true;
+  });
+  mapEl.addEventListener('wheel', () => { map._userPanned = true; }, { passive: true });
+  mapEl.addEventListener('touchstart', (e) => { if (e.touches.length > 1) map._userPanned = true; }, { passive: true });
+  zoomCtl.getContainer().addEventListener('click', () => {
     map._userPanned = true;
   });
 
-  return { map, markers, refreshMap };
+  return { map, markers, frame, refreshMap };
 }
 
 function setActiveCafe(id, markers) {
@@ -317,14 +356,25 @@ function setActiveCafe(id, markers) {
   if (markers) {
     Object.entries(markers).forEach(([mid, marker]) => {
       const on = mid === id;
-      marker.setStyle({
-        radius: on ? 9 : 7,
-        fillOpacity: on ? 0.85 : 0.35,
-        weight: on ? 3 : 2,
-      });
-      if (on) marker.bringToFront();
+      marker.getElement()?.classList.toggle('cafe-pin--active', on);
+      marker.setZIndexOffset(on ? 1000 : 0);
+      if (on) marker.openTooltip();
+      else marker.closeTooltip();
     });
   }
+}
+
+function cafeItemHtml(c) {
+  const emoji = c.emoji ? ` ${c.emoji}` : '';
+  const addr = formatAddress(c.address);
+  return `<button type="button" class="cafe-item" data-id="${escapeHtml(c.id)}" data-cuelume-press>
+    <span class="cafe-item__score">${c.score != null ? c.score.toFixed(1) : '—'}</span>
+    <span class="cafe-item__body">
+      <span class="cafe-item__name">${escapeHtml(c.name)}${emoji}</span>
+      ${c.note ? `<span class="cafe-item__note">${escapeHtml(c.note)}</span>` : ''}
+      ${addr ? `<span class="cafe-item__addr">${escapeHtml(addr)}</span>` : ''}
+    </span>
+  </button>`;
 }
 
 async function loadCafes() {
@@ -340,65 +390,114 @@ async function loadCafes() {
       return;
     }
 
-    const listHtml = cafes
-      .map((c) => {
-        const emoji = c.emoji ? ` ${c.emoji}` : '';
-        const addr = formatAddress(c.address);
-        return `<button type="button" class="cafe-item" data-id="${escapeHtml(c.id)}" data-cuelume-press>
-          <span class="cafe-item__score">${c.score != null ? c.score.toFixed(1) : '—'}</span>
-          <span class="cafe-item__body">
-            <span class="cafe-item__name">${escapeHtml(c.name)}${emoji}</span>
-            ${c.note ? `<span class="cafe-item__note">${escapeHtml(c.note)}</span>` : ''}
-            ${addr ? `<span class="cafe-item__addr">${escapeHtml(addr)}</span>` : ''}
-          </span>
-        </button>`;
-      })
-      .join('');
+    // Group by region, ordered by each region's best score; rank within region.
+    const regions = [];
+    const byRegion = new Map();
+    cafes.forEach((c) => {
+      const r = c.region || data.region || 'Cafes';
+      if (!byRegion.has(r)) {
+        byRegion.set(r, []);
+        regions.push(r);
+      }
+      const list = byRegion.get(r);
+      list.push(c);
+      c._rank = list.length;
+    });
+
+    const tabs =
+      regions.length > 1
+        ? `<div class="cafe-widget__regions" role="tablist" aria-label="Region">${regions
+            .map(
+              (r, i) =>
+                `<button type="button" role="tab" class="cafe-widget__region" data-region="${escapeHtml(r)}" aria-selected="${i === 0}" data-cuelume-toggle>${escapeHtml(r)}</button>`
+            )
+            .join('')}</div>`
+        : '';
 
     root.innerHTML = `
       <header class="cafe-widget__head">
         <span class="cafe-widget__icon" aria-hidden="true">☕</span>
         <span class="cafe-widget__title">Favorite Cafes</span>
+        ${tabs}
+        <a class="cafe-widget__directions" href="${googleMapsUrl(cafes[0])}" target="_blank" rel="noopener" data-cuelume-hover="tick">Maps ↗</a>
       </header>
       <div class="cafe-widget__panel">
-        <div class="cafe-widget__list" role="list">${listHtml}</div>
+        <div class="cafe-widget__list" role="list"></div>
         <div class="cafe-widget__map-wrap">
-          <div id="cafe-map" class="cafe-widget__map" role="application" aria-label="Map of rated cafes near Stanford"></div>
+          <div id="cafe-map" class="cafe-widget__map" role="application" aria-label="Map of rated cafes"></div>
         </div>
       </div>
     `;
+
+    const listEl = root.querySelector('.cafe-widget__list');
+    let mapState = null;
+    let region = regions[0];
 
     const select = (id, opts = {}) => {
       const cafe = cafes.find((c) => c.id === id);
       if (!cafe) return;
 
+      const dir = root.querySelector('.cafe-widget__directions');
+      if (dir) {
+        dir.href = googleMapsUrl(cafe);
+        dir.setAttribute('aria-label', `Open ${cafe.name} in Google Maps`);
+      }
       setActiveCafe(id, mapState?.markers);
-      if (!mapState?.map) return;
+      if (!mapState?.map || opts.quiet || !hasCoords(cafe)) return;
+      mapState.map._userPanned = true;
 
       if (opts.pan) {
         mapState.map.panTo([cafe.lat, cafe.lng], { animate: true, duration: 0.35 });
       } else {
-        const z = Math.max(mapState.map.getZoom(), 14);
+        const z = Math.max(mapState.map.getZoom(), 15);
         mapState.map.flyTo([cafe.lat, cafe.lng], z, { duration: 0.5 });
       }
     };
 
-    let mapState = null;
+    const showRegion = (r) => {
+      region = r;
+      const list = byRegion.get(r);
+      listEl.innerHTML = list.map(cafeItemHtml).join('');
+      listEl.scrollTop = 0;
+      listEl.querySelectorAll('.cafe-item').forEach((btn) => {
+        btn.addEventListener('click', () => select(btn.dataset.id));
+      });
+      root.querySelectorAll('.cafe-widget__region').forEach((b) => {
+        b.setAttribute('aria-selected', String(b.dataset.region === r));
+      });
+      mapState?.frame(list);
+      select(list[0].id, { quiet: true });
+    };
+
+    root.querySelectorAll('.cafe-widget__region').forEach((b) => {
+      b.addEventListener('click', () => b.dataset.region !== region && showRegion(b.dataset.region));
+    });
+
+    showRegion(region);
+
     const bootMap = () => {
       mapState = initCafeMap(cafes, select);
-      if (mapState) select(cafes[0].id);
+      if (!mapState) return;
+      const list = byRegion.get(region);
+      mapState.frame(list);
+      [100, 400].forEach((ms) => setTimeout(mapState.refreshMap, ms));
+      select(list[0].id, { quiet: true });
     };
 
     requestAnimationFrame(() => requestAnimationFrame(bootMap));
     window.addEventListener('load', () => mapState?.refreshMap?.());
-
-    root.querySelectorAll('.cafe-item').forEach((btn) => {
-      btn.addEventListener('click', () => select(btn.dataset.id));
-    });
   } catch {
     root.innerHTML = '<p class="cafe-empty">Could not load cafes.</p>';
   }
 }
+
+/* Phones: mirror the sidebar socials under the intro (one source of truth). */
+(function mirrorSocials() {
+  const src = document.querySelector('.sidebar__socials');
+  const dest = document.querySelector('.intro__socials');
+  if (!src || !dest) return;
+  dest.innerHTML = src.innerHTML;
+})();
 
 loadMusic();
 loadCafes();

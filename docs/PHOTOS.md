@@ -1,39 +1,34 @@
-# Photos gallery
+# Photos
 
-Static photolog from `images/photos/` + `data/photos.json`.
+## Add photos (the easy way)
 
-## Add photos manually
-
-1. Drop JPEGs into `images/photos/`
+1. AirDrop / drag your photos (HEIC is fine) into **`photos-inbox/`**.
 2. Run:
 
-```bash
-npm install
-npm run photos:optimize
-```
+   ```bash
+   npm run photos:add
+   ```
 
-That recompresses images and refreshes `data/photos.json` (keeps any captions/dates you already set).
+   It asks for a caption for each one (press Enter to skip). Then it shrinks the photo for the web, reads the date it was taken, strips GPS and other metadata, slots it in newest-first, and empties the inbox.
 
-3. Optionally edit captions/dates in `data/photos.json`:
+3. Preview with `python3 -m http.server 8080` → http://localhost:8080/#photos, then:
 
-```json
-{
-  "src": "images/photos/lake-lag.jpg",
-  "caption": "Lake Lagunita",
-  "alt": "Sunset over Lake Lagunita",
-  "date": "May 2026",
-  "w": 1600,
-  "h": 1067
-}
-```
+   ```bash
+   git add images/photos data/photos.json && git commit -m "Add photos" && git push
+   ```
 
-4. Preview: `python3 -m http.server 8080` → http://localhost:8080/#photos  
-5. Commit + push.
+**Shortcuts**
 
-```bash
-npm run photos:validate
-```
+- Name the file what you want the caption to be (`Dish at golden hour.HEIC`) and it'll be pre-filled.
+- Point it straight at files or a folder: `npm run photos:add -- ~/Downloads/IMG_5012.HEIC "Dish at golden hour"`
+- `photos-inbox/` is git-ignored, so raw originals (with GPS) never get committed by accident.
 
-## GitHub Action
+## Edit / reorder / remove
 
-Workflow **Photos** validates `photos.json` on PRs/pushes that touch the gallery, and can optimize on manual dispatch.
+Everything lives in `data/photos.json`; the order there is the order on the site.
+
+- **Caption or date:** edit `caption` / `date` (`"Oct 2026"`).
+- **Reorder:** move the entry.
+- **Remove:** delete the entry and its file in `images/photos/`.
+
+`npm run photos:validate` checks that every entry points at a real file (the **Photos** GitHub Action runs this on push too).

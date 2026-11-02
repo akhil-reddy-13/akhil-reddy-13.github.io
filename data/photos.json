@@ -1,7 +1,23 @@
 {
-  "updated": "2026-08-04T00:40:00.000Z",
+  "updated": "2026-11-02T08:54:21.177Z",
   "source": "manual",
   "photos": [
+    {
+      "src": "images/photos/pacifica-seagull.jpg",
+      "caption": "Pacifica seagull",
+      "alt": "Pacifica seagull",
+      "date": "Oct 2026",
+      "w": 1200,
+      "h": 1600
+    },
+    {
+      "src": "images/photos/pacifica-beach-sunset.jpg",
+      "caption": "Pacifica beach sunset",
+      "alt": "Pacifica beach sunset",
+      "date": "Oct 2026",
+      "w": 1600,
+      "h": 1200
+    },
     {
       "src": "images/photos/img-4180.jpg",
       "caption": "Golden Gate at night",
@@ -87,6 +103,14 @@
       "caption": "Yosemite's 'Seven Sisters'",
       "alt": "Yosemite's Seven Sisters under the stars",
       "date": "Jan 2026",
+      "w": 1600,
+      "h": 1200
+    },
+    {
+      "src": "images/photos/purple-kansas-thunderstorm.jpg",
+      "caption": "Purple Kansas thunderstorm",
+      "alt": "Purple Kansas thunderstorm",
+      "date": "Apr 2024",
       "w": 1600,
       "h": 1200
     }

@@ -2,15 +2,18 @@
   "name": "akhil-reddy-13.github.io",
   "private": true,
   "type": "module",
-  "description": "Personal site — static GitHub Pages",
+  "description": "Personal site \u2014 static GitHub Pages",
   "scripts": {
+    "photos:add": "node tools/photo-sync/add.mjs",
     "photos:optimize": "node tools/photo-sync/sync.mjs --optimize",
-    "photos:validate": "node tools/photo-sync/sync.mjs --validate"
+    "photos:validate": "node tools/photo-sync/sync.mjs --validate",
+    "cafes:geocode": "node tools/cafes/geocode.mjs"
   },
   "dependencies": {
     "cuelume": "^0.1.2"
   },
   "devDependencies": {
+    "exifr": "^7.1.3",
     "sharp": "^0.35.3"
   }
 }
